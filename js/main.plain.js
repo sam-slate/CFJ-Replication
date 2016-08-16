@@ -363,7 +363,7 @@
                 IPPR.map.map[key] = L.map($('.Map').eq(key)[0], {
                     scrollWheelZoom: false,
                     zoomControl: false
-                }).setView([-23.534, 6.172], 6);
+                }).setView([-13.198, 25.797], 6);
 
                 /*
                 ** ... change zoom controls to be in the bottom right corner
