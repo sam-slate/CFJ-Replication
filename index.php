@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Transparent Oil Malawi</title>
-    <meta name="description" content="DIIG Malawi platform maps the details, trends and connections in the allocation of Petroleum Exploration Licences in Malawi.">
+    <meta name="description" content="DIIG Malawi: explore and extract data on Malawi's minerals.">
 
     <script>
         (function () {
@@ -63,7 +63,7 @@
     <meta property="og:site_name" content="DIIG Malawi" />
     <meta property="og:title" content="DIIG Malawi" />
 
-    <meta property="og:description" content="Mapping license details, connections, and trends in the allocation of Petroleum Exploration Licences in Malawi." />
+    <meta property="og:description" content="Explore and extract data on Malawi's minerals." />
     <meta property="og:url" content="<?php echo $URL ?>" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/favicons/ogMain.png" />
