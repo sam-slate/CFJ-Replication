@@ -339,9 +339,10 @@ $shades: (
 
 
 $brand-colors: (
-   blue: #256A9A,
-   green: #7E9669,
-   accent: #E7B51F
+   red: #BD0D1F,
+   green: #349936,
+   accent: #BD0D1F,
+   faded: rgba(0,0,0,0.4)
 );
 
 
@@ -419,4 +420,3 @@ $colors: (
   @warn "Unknown `#{name}` in $colors.";
   @return null;
 }
-

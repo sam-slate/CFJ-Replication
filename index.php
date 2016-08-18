@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Transparent Oil Malawi</title>
-    <meta name="description" content="The Transparent Oil Malawi platform maps the details, trends and connections in the allocation of Petroleum Exploration Licences in Malawi.">
+    <meta name="description" content="DIIG Malawi platform maps the details, trends and connections in the allocation of Petroleum Exploration Licences in Malawi.">
 
     <script>
         (function () {
@@ -60,8 +60,8 @@
         }());
     </script>
 
-    <meta property="og:site_name" content="Transparent Oil Malawi" />
-    <meta property="og:title" content="Transparent Oil Malawi" />
+    <meta property="og:site_name" content="DIIG Malawi" />
+    <meta property="og:title" content="DIIG Malawi" />
 
     <meta property="og:description" content="Mapping license details, connections, and trends in the allocation of Petroleum Exploration Licences in Malawi." />
     <meta property="og:url" content="<?php echo $URL ?>" />
@@ -103,31 +103,38 @@
                 <div class="col s12">
                     <h1 class="Header-title">
                         <a href="/">
-                            <span class="Header-title--secondary">Transparent Oil</span>
+                            <span class="Header-title--secondary">Data and Info for Industry Governance</span>
                             <span class="Header-title--primary">Malawi</span>
                         </a>
                     </h1>
                 </div>
                 <div class="col s12 m6 offset-m3">
-                    <p class="light Header-description">Mapping license details, connections, and trends in the allocation of Petroleum Exploration Licences in Namibia.</p>
+                    <p class="light Header-description">Explore and extract data on Malawi's minerals</p>
                 </div>
             </div>
 
             <ul class="Header-navigation">
+                <li><a href="/blog/"<?php if($match['name'] == 'blog'){ echo ' class="is-active"'; } ?>>Blog</a></li>
                 <li><a href="/about/"<?php if($match['name'] == 'about'){ echo ' class="is-active"'; } ?>>About</a></li>
             </ul>
 
             <?php if($match['name'] == 'homepage'){ ?>
                 <ul class="tabs Header-tabs">
                     <li class="tab col">
-                        <a href="/#tab-0" class="brand blue" data-view="licenses">
-                            <span>Browse by licence</span>
+                        <a href="/#tab-0" class="brand" data-view="companies">
+                            <span>Browse by company</span>
                             <i class="material-icons">keyboard_arrow_right</i>
                         </a>
                     </li>
                     <li class="tab col">
-                        <a href="/#tab-1" class="brand green" data-view="companies">
-                            <span>Browse by company</span>
+                        <a href="/#tab-1" class="brand" data-view="mineral-licences">
+                            <span>Browse by mineral licence</span>
+                            <i class="material-icons">keyboard_arrow_right</i>
+                        </a>
+                    </li>
+                    <li class="tab col">
+                        <a href="/#tab-2" class="brand" data-view="oil-licences">
+                            <span>Browse by oil licence</span>
                             <i class="material-icons">keyboard_arrow_right</i>
                         </a>
                     </li>
@@ -138,7 +145,7 @@
     </header>
 
     <?php if($match['name'] == 'about'){ ?>
-        <div class="Search brand blue"></div>
+        <div class="Search brand red"></div>
     <?php } ?>
 
     <?php
@@ -159,7 +166,7 @@
             <div class="row center-align">
                 <div class="col s12">
                     <p class="Header-title">
-                        <span class="Header-title--secondary">Transparent Oil</span>
+                        <span class="Header-title--secondary">Data and Info for Industry Governance</span>
                         <span class="Header-title--primary">Malawi</span>
                     </p>
                 </div>
@@ -169,8 +176,8 @@
                 <div class="col s12 m10 offset-m1">
                     <p class="Footer-poweredBy">a project by</p>
                     <a href="http://www.ippr.org.na/">
-                        <img src="/images/dist/ippr.png" alt="IPPR" width="1841" height="156" class="Footer--ippr" />
-                        <img src="/images/dist/ippr-small.png" alt="IPPR" width="707" height="273" class="Footer--ipprSmall" />
+                        <img src="/images/dist/CFJ.png" alt="IPPR" width="1841" height="156" class="Footer--ippr" />
+                        <img src="/images/dist/CFJ.png" alt="IPPR" width="707" height="273" class="Footer--ipprSmall" />
                     </a>
                 </div>
                 <div class="col s12 m10 offset-m1">

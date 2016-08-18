@@ -2137,28 +2137,36 @@
   color: transparent !important;
 }
 
-.brand.blue {
-  background-color: #256A9A !important;
+.brand.red {
+  background-color: #BD0D1F !important;
 }
 
-.brand-text.text-blue {
-  color: #256A9A !important;
+.brand-text.text-red {
+  color: #BD0D1F !important;
 }
 
 .brand.green {
-  background-color: #7E9669 !important;
+  background-color: #349936 !important;
 }
 
 .brand-text.text-green {
-  color: #7E9669 !important;
+  color: #349936 !important;
 }
 
 .brand.accent {
-  background-color: #E7B51F !important;
+  background-color: #BD0D1F !important;
 }
 
 .brand-text.text-accent {
-  color: #E7B51F !important;
+  color: #BD0D1F !important;
+}
+
+.brand.faded {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.brand-text.text-faded {
+  color: rgba(0, 0, 0, 0.4) !important;
 }
 
 .black {
@@ -10784,7 +10792,7 @@ html.js .js-isHidden {
           transform: translate(-50%, 27px);
   width: 60px;
   height: 5px;
-  background-color: #E7B51F;
+  background-color: #BD0D1F;
   border-radius: 2px;
 }
 
@@ -10827,7 +10835,7 @@ html.js .js-isHidden {
           transform: translate(-50%, 0);
   width: 0;
   height: 2px;
-  background-color: #E7B51F;
+  background-color: #BD0D1F;
   border-radius: 2px;
   transition: width 0.3s ease;
 }
@@ -10888,7 +10896,7 @@ html.js .js-isHidden {
 @media only screen and (min-width: 993px) {
   .Header-tabs .tab {
     width: auto;
-    margin: 0 10px;
+    margin: 10px;
   }
   .Header-tabs .tab a {
     font-weight: bold;
@@ -10911,7 +10919,6 @@ html.js .js-isHidden {
 @media only screen and (min-width: 993px) {
   .Header-tabs .tab a {
     display: inline-block;
-    border-bottom: 5px solid;
   }
 }
 
@@ -10933,18 +10940,11 @@ html.js .js-isHidden {
 
 .Header-tabs .tab a.active {
   color: #fff;
+  background: #BD0D1F;
 }
 
 .Header-tabs .tab a.active:hover {
   color: #fff;
-}
-
-@media only screen and (min-width: 993px) {
-  .Header-tabs .tab a.active {
-    -webkit-transform: translate(0, 0);
-        -ms-transform: translate(0, 0);
-            transform: translate(0, 0);
-  }
 }
 
 .Header-tabs .tab a:hover {
@@ -10953,9 +10953,7 @@ html.js .js-isHidden {
 
 @media only screen and (min-width: 993px) {
   .Header-tabs .tab a:hover {
-    -webkit-transform: translate(0, 0);
-        -ms-transform: translate(0, 0);
-            transform: translate(0, 0);
+    background: rgba(189, 13, 31, 0.6);
   }
 }
 
@@ -11056,7 +11054,7 @@ html.js .js-isHidden {
 }
 
 .chip.is-active {
-  background-color: #E7B51F;
+  background-color: #BD0D1F;
   color: #fff;
 }
 

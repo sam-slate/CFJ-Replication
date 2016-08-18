@@ -3,7 +3,7 @@
         <div id="tab-0" class="col s12">
 
 
-            <div class="Search z-depth-1 hide-on-med-and-down brand blue">
+            <div class="Search z-depth-1 hide-on-med-and-down brand green">
 
                 <div class="input-field Search-field">
                     <i class="material-icons small prefix Search-trigger">search</i>
@@ -33,13 +33,13 @@
                 <div class="Data-holder">
 
                     <div class="List List--main z-depth-1" data-level="0">
-                        <div class="List-header brand blue">
+                        <div class="List-header brand green">
                             <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
                             <span>Licenses <span class="List-count"></span></span>
                         </div>
 
 
-                        <div class="Search Search--mobile hide-on-large-only brand blue">
+                        <div class="Search Search--mobile hide-on-large-only brand green">
 
                             <!--div class="Filters Filters--mobile">
                                 <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters1'>filter_list</i>
@@ -127,7 +127,7 @@
                 <li class="collection-item" data-id="{{ id }}" data-sankey="{{ sankey }}" data-table="{{ table }}">
                     <p class="List-title">{{ title }}</p>
                     {{#concessionNumbers}}
-                        <span class="List-number brand blue">{{.}}</span>
+                        <span class="List-number brand green">{{.}}</span>
                     {{/concessionNumbers}}
                     <span class="u-isHidden concessionNumbers">
                         {{#concessionNumbers}}
@@ -232,7 +232,7 @@
                     </div>
 
                     <div class="List List--extra z-depth-1 u-isHidden" data-level="1">
-                        <div class="List-header brand blue">
+                        <div class="List-header brand green">
                             <div class="List-headerActive">
                                 <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
                                 <span>Licenses in ownership <span class="List-count"></span></span>
@@ -277,7 +277,7 @@
                 <li class="collection-item" data-id="{{ id }}">
                     <p class="List-title List-title--full">{{ title }}</p>
                     {{#concessionNumbers}}
-                        <span class="List-number brand blue">{{.}}</span>
+                        <span class="List-number brand green">{{.}}</span>
                     {{/concessionNumbers}}
                     <span class="u-isHidden concessionNumbers">
                         {{#concessionNumbers}}
@@ -293,7 +293,7 @@
 
         <div class="AdditionalInfo u-isHidden">
 
-            <div class="AdditionalInfo-header brand blue u-cf">
+            <div class="AdditionalInfo-header brand green u-cf">
 
                 <h2 class="AdditionalInfo-title">Transaction history for Licence number <span></span></h2>
 

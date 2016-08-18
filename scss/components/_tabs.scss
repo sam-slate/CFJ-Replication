@@ -29,7 +29,7 @@
 
         @media #{$large-and-up} {
             width: auto;
-            margin: 0 10px;
+            margin: 10px;
 
             a {
                 font-weight: bold;
@@ -46,7 +46,7 @@
 
             @media #{$large-and-up} {
                 display: inline-block;
-                border-bottom: 5px solid;
+                //border-bottom: 5px solid;
             }
 
             @include fluid-type(font-size, 320px, 1900px, 15px, 20px);
@@ -57,19 +57,21 @@
 
             &.active {
                 color: #fff;
+                background: #BD0D1F;
                 &:hover {
                     color: #fff;
                 }
 
                 @media #{$large-and-up} {
-                    transform: translate(0,0);
+                    //transform: translate(0,0);
                 }
             }
 
             &:hover {
                 color: inherit;
                 @media #{$large-and-up} {
-                    transform: translate(0,0);
+                    // transform: translate(0,0);
+                    background: fade-out(#BD0D1F, 0.4);
                 }
             }
         }
