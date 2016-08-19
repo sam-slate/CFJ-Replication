@@ -114,7 +114,7 @@
             </div>
 
             <ul class="Header-navigation">
-                <li><a href="/blog/"<?php if($match['name'] == 'blog'){ echo ' class="is-active"'; } ?>>Blog</a></li>
+                <li><a href="https://mininginmalawi.com/">Blog</a></li>
                 <li><a href="/about/"<?php if($match['name'] == 'about'){ echo ' class="is-active"'; } ?>>About</a></li>
             </ul>
 
