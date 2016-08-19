@@ -1,36 +1,33 @@
 <div class="StaticContent About">
     <div class="row">
         <div class="col s12 m6 offset-m3">
-            <h1>An investigative platform for advocacy</h1>
+            <h1>
+                Migodi Yathu<br />
+                <small>Explore and extract data on Malawi’s minerals</small>    
+            
+            </h1>
+
+            
+
+            <h2>An investigative platform for advocacy</h2>
 
 
-            <p>Transparent Oil Namibia enables you to map, find, browse, and search petroleum exploration licenses. You can find which companies hold licenses, who owns and manages these companies, where they’re registered, and how ownership has changed over time. You can also access licence and company information by clicking on the map.</p>
+            <p><strong>Migodi Yathu</strong> enables you to map, find, browse and search companies involved in exploring and extracting Malawi’s minerals. You can find the type of licences that have been issued, the companies that are involved and the minerals being sought. You can also filter the data to learn which projects and companies are operating near your home.</p>
 
-            <p>The information on this platform is publicly available, but it was previously hard to access and use for advocacy without exhausting resources. Tracking license history in Namibia has often required sorting through hundreds of hardcopy pages of text. With improved accessibility to this data, you can more easily combat industry corruption and advocate for policy changes in Namibia.</p>
+            <p>This information is in the public domain but generally very hard to access and use in advocacy. Ongoing data collection requires scraping and searching the web, visits to different government offices to find records for companies, sorting through hardcopies of many, many documents, and more. The portal aims to help you dig deeper into Malawi’s minerals data that can be used in your advocacy for promoting responsible resource governance.  </p>
 
-            <blockquote>
-                “Such negative outcomes of resource extraction, commonly known as the resource curse.. can be countered by strong and unambiguous policies, accompanied by effective institutional structures.“ <a href="http://www.namibian.com.na/index.php?id=139106&page=archive-read">- The Namibian</a>
-            </blockquote>
+            <blockquote>“We want to make sure that Malawi does not just have a transparent governance of the sector, but actually reaches higher levels of accountability for the benefit of the people” <br />Hon Goodall E. Gondwe, Minister of Finance, Economic Planning and Development</blockquote>
 
-            <p>With a small group of public officials exercising discretionary decision-making powers, the current way petroleum exploration licences in Namibia are issued is opaque and open to abuse. Politically-connected owners receive concession rights which they can then sell at a higher price for their financial gain.</p>
+            <p><strong>Migodi Yathu</strong> is a work in progress. In the coming months, you can expect to see company ownership, revenue and production information along with environmental and social commitments companies make. It is the first attempt by civil society to make this information more accessible and understandable.</p>
 
-            <p>IPPR developed this platform to identify licensing patterns, red-flag corruption, and advocate for policy reform.</p>
+<p>This site is a project being implemented by Citizens for Justice on behalf of Publish What You Malawi and the Natural Resources Justice Network with support from Matchbox by The Engine Room.</p>
+
+<p><a href="mailto:r.etterphoya@gmail.com">Rachel Etter-Phoya</a> (<a href="https://twitter.com/MiningInMalawi" target="_blank" rel="nofollow">@Mininginmalawi</a>) and <a href="mailto:elyvinnkhonjera@gmail.com">Elyvin Nkhonjera Chawinga</a> (<a href="https://twitter.com/Elyvin" target="_blank" rel="nofollow">@Elyvin</a>) are curating this site. We welcome your feedback - if you notice a gap, have more information, want assistance in understanding the data or have a suggestion please contact us. </p>
+
 
             <div class="matchbox-box">
-              <p><strong>Transparent Oil Namibia is a project by the Institute for Public Policy Research (IPPR) with support from Matchbox by The Engine Room.</strong></p>
-
-              <div class="Block row">
-                <div class="col s4">
-                  <a href="http://www.ippr.org.na/" title="IPPR">
-                      <img src="/images/dist/ippr-small.png" alt="IPPR" />
-                  </a>
-                </div>
-                <div class="col s8">
-                  <p class="Block-title">
-                    <a href="http://www.ippr.org.na/">IPPR</a>
-                   delivers independent, analytical, critical yet constructive research into social, political, and economic issues that affect development in Namibia.</p>
-                </div>
-              </div>
+              
+             
 
 
               <div class="Block row">
@@ -87,13 +84,6 @@
               <p>Res4Dev is a policy research firm assisting citizens in resource-rich developing countries.</p>
               </div>
             </div>
-
-            <h2>Supporting Advisors and Contributors</h2>
-            <p><strong>Julie Lorch</strong> - initial UX concept</p>
-            <p><strong>Friedrich Lindenberg</strong> - data modelling and data scraper development</p>
-            <p><strong>Anders Pedersen</strong> - data modelling</p>
-            <p><strong>Toby Marsden</strong> - database development</p>
-            <p><strong>Women Hack For Non Profit</strong> - front end development</p>
 
               <h2>Disclaimer</h2>
               <p>While strenuous efforts have been made to check the veracity of data presented on this website, complete accuracy cannot be guaranteed. Some inaccuracies may occur - for example when company filings with various statutory bodies are not up to date. Where possible, the sources of information are indicated. The data is regularly updated.</p>
