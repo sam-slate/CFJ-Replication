@@ -103,9 +103,6 @@
                         </div>
 
                         <div class="List-holder">
-                            <div class="Sankey">
-                                <div class="Sankey-mobile"></div>
-                            </div>
                             <div class="Table row"></div>
                             <a class="waves-effect waves-light btn orange Download-button"><i class="material-icons right">file_download</i>Download data</a>
                         </div>
@@ -124,7 +121,7 @@
             </div>
 
             <script type="x-tmpl-mustache" class="main-tpl">
-                <li class="collection-item" data-id="{{ id }}" data-sankey="{{ sankey }}" data-table="{{ table }}">
+                <li class="collection-item" data-id="{{ id }}" data-table="{{ table }}">
                     <p class="List-title">{{ title }}</p>
                     {{#concessionNumbers}}
                         <span class="List-number brand green">{{.}}</span>
@@ -164,7 +161,7 @@
 
         </div>
 
-        <div id="tab-1" class="col s12 tab-content">
+        <div id="tab-1" class="col s12">
 
             <div class="Search z-depth-1 hide-on-med-and-down brand green">
 
@@ -302,10 +299,6 @@
             </div>
 
             <div class="row AdditionalInfo-data">
-
-                <div class="col s12">
-                    <div class="Sankey Sankey-desktop"></div>
-                </div>
 
                 <div class="col s12">
                     <div class="Table"></div>
