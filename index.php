@@ -134,7 +134,7 @@
                         </a>
                     </li>
                     <li class="tab col">
-                        <a href="/#tab-2" class="brand" data-view="oil-licences">
+                        <a href="/#tab-2" class="brand" data-view="oil">
                             <span>Browse by oil licence</span>
                             <i class="material-icons">keyboard_arrow_right</i>
                         </a>

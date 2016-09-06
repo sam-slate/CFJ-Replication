@@ -41,21 +41,6 @@
 
                         <div class="Search Search--mobile hide-on-large-only brand green">
 
-                            <!--div class="Filters Filters--mobile">
-                                <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters1'>filter_list</i>
-                                <ul class="Filters-list z-depth-1" id="filters1">
-                                    <li class="Filters-item">
-                                        <span class="chip Filters-itemFilter has-data" data-filter="expiration">Soon to expire <i class="material-icons Filters-remove">close</i></span>
-                                    </li>
-                                    <li class="Filters-item">
-                                        <span class="chip Filters-itemFilter" data-filter="ownership">Without ownership <i class="material-icons Filters-remove">close</i></span>
-                                    </li>
-                                    <li class="Filters-item">
-                                        <span class="chip Filters-itemFilter" data-filter="changedOwnership">Recently changed ownership <i class="material-icons Filters-remove">close</i></span>
-                                    </li>
-                                </ul>
-                            </div-->
-
                             <div class="Filters-active"></div>
 
                             <div class="input-field Search-field">
@@ -215,8 +200,8 @@
                             <div class="input-field Search-field">
                                 <i class="material-icons small prefix Search-trigger">search</i>
                                 <i class="material-icons small prefix Search-remove">close</i>
-                                <input id="search-tab-1" type="text" class="Search-input" />
-                                <label for="search-tab-1">Filter by Company name</label>
+                                <input id="search-tab-2" type="text" class="Search-input" />
+                                <label for="search-tab-2">Filter by Company name</label>
                             </div>
 
                         </div>
@@ -284,6 +269,89 @@
                     <p class="List-switch" data-to="licenses" data-id="{{ id }}"><i class="material-icons">info</i></p>
                 </li>
             </script>
+
+
+        </div>
+
+        <div id="tab-2" class="col s12">
+
+            <div class="Search z-depth-1 hide-on-med-and-down brand green">
+
+                <div class="input-field Search-field">
+                    <i class="material-icons small prefix Search-trigger">search</i>
+                    <i class="material-icons small prefix Search-remove">close</i>
+                    <input id="search-tab-3" type="text" class="Search-input" />
+                    <label for="search-tab-3">Filter by name</label>
+                </div>
+
+            </div>
+
+
+            <div class="Data is-loading">
+
+                <div class="Data-holder">
+
+                    <div class="List List--main z-depth-1" data-level="0">
+                        <div class="List-header brand green">
+                            <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
+                            <span>Licenses <span class="List-count"></span></span>
+                        </div>
+
+
+                        <div class="Search Search--mobile hide-on-large-only brand green">
+
+                            <div class="Filters-active"></div>
+
+                            <div class="input-field Search-field">
+                                <i class="material-icons small prefix Search-trigger">search</i>
+                                <i class="material-icons small prefix Search-remove">close</i>
+                                <input id="search-tab-3" type="text" class="Search-input" />
+                                <label for="search-tab-3">Filter by name</label>
+                            </div>
+
+                        </div>
+
+                        <div class="List-holder">
+                            <ul class="collection">
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="List List--extra z-depth-1 u-isHidden" data-level="1">
+                        <div class="List-header brand green">
+                            <div class="List-headerActive">
+                                <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
+                                <span>Companies in ownership <span class="List-count"></span></span>
+                            </div>
+                        </div>
+
+                        <div class="List-holder is-filterable">
+                            <p class="List-headerInactive">
+                                Select a license on the left to see ownership information
+                            </p>
+                            <ul class="collection collapsible" data-collapsible="accordion">
+                            </ul>
+                            <div class="Map Map--1 Map--inline oil hide-on-large-only"></div>
+                            <div class="Table row hide-on-large-only"></div>
+                            <div class="OwnedLicenses row hide-on-large-only"></div>
+                            <div class="Hierarchy row hide-on-large-only"></div>
+                            <a class="waves-effect waves-light btn orange hide-on-large-only Download-button"><i class="material-icons right">file_download</i>Download data</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="Map Map--1 oil"></div>
+
+
+                <div class="Loader">
+                    <div class="Loader-holder">
+                        <div class="preloader-wrapper big active"> <div class="spinner-layer spinner-blue-only"> <div class="circle-clipper left"> <div class="circle"></div> </div><div class="gap-patch"> <div class="circle"></div> </div><div class="circle-clipper right"> <div class="circle"></div> </div> </div> </div>
+                    </div>
+                </div>
+
+            </div>
 
 
         </div>

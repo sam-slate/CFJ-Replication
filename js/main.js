@@ -201,10 +201,12 @@
                     }
                 });
 
-                var size = $(IPPR.dom.lists.main+':visible').find('.collection-item').size();
-                $(IPPR.dom.lists.main).find(IPPR.dom.lists.count).html('('+size+')');
+                setTimeout(function(){
+                    var size = $(IPPR.dom.lists.main+':visible').find('.collection-item').size();
+                    $(IPPR.dom.lists.main).find(IPPR.dom.lists.count).html('('+size+')');
+                },50);
 
-                
+
             }
         },
         filters: {
@@ -351,7 +353,7 @@
     /*
     ** Initialize the maps ...
     */
-    IPPR.initMap = function(){  
+    IPPR.initMap = function(){
 
         /*
         ** ... get the geo json data
@@ -801,8 +803,6 @@
             IPPR.states.view = $(this).data('view');
             IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
 
-            var size = $(IPPR.dom.lists.main+':visible').find('.collection-item').size();
-            $(IPPR.dom.lists.main).find(IPPR.dom.lists.count).html('('+size+')');
         });
 
         /*
