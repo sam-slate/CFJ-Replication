@@ -365,6 +365,7 @@
             */
             $.each(IPPR.dom.map, function(key,val){
 
+
                 var that = $(val);
 
                 IPPR.map.layers[key] = [];
