@@ -76,6 +76,8 @@
     <link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
     <link rel="manifest" href="/favicons/manifest.json">
     <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/favicons/favicon.ico">
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
     <link rel="dns-prefetch" href="//gstatic.com">
