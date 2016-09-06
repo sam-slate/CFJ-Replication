@@ -124,13 +124,13 @@
             <?php if($match['name'] == 'homepage'){ ?>
                 <ul class="tabs Header-tabs">
                     <li class="tab col">
-                        <a href="/#tab-1" class="brand active" data-view="companies">
+                        <a href="/#tab-0" class="brand active" data-view="companies">
                             <span>Browse by company</span>
                             <i class="material-icons">keyboard_arrow_right</i>
                         </a>
                     </li>
                     <li class="tab col">
-                        <a href="/#tab-0" class="brand" data-view="licenses">
+                        <a href="/#tab-1" class="brand" data-view="licenses">
                             <span>Browse by mineral licence</span>
                             <i class="material-icons">keyboard_arrow_right</i>
                         </a>

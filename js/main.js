@@ -86,18 +86,18 @@
             filters: false
         },
         data: {
-            apiURL: 'https://namibmap.carto.com/api/v2/sql/?q=',
+            apiURL: 'https://migodiyathu.carto.com/api/v2/sql/?q=',
             data: {},
             tabs: {
                 0: {
-                    name: 'licenses',
-                    sql: "SELECT * FROM na_licenses_operators_concessions",
-                    groupBy: 'license_id'
+                    name: 'companies',
+                    sql: "SELECT l.cartodb_id as l_cartodb_id, l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.cartodb_id as company_id, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_companies c WHERE l.company_id = c.cartodb_id",
+                    groupBy: 'company_id'
                 },
                 1: {
-                    name: 'companies',
-                    sql: "SELECT * FROM na_license_operators",
-                    groupBy: 'company_id'
+                    name: 'licenses',
+                    sql: "SELECT l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_companies c WHERE l.company_id = c.cartodb_id",
+                    groupBy: 'license_number'
                 }
             },
         },
@@ -283,19 +283,6 @@
                 */
                 $.each(IPPR.data.data[key], function(k, value){
 
-                    /*
-                    ** ... set up conncession data
-                    */
-                    var concessions = '',
-                        comma = '';
-                    $.each(value, function(k,v){
-                        if (k + 1 < value.length){
-                            comma = ',';
-                        } else {
-                            comma = '';
-                        }
-                        concessions += v.concessions + comma;
-                    });
 
                     /*
                     ** ... parse the template for future use
@@ -310,7 +297,7 @@
                         id = k;
                     } else {
                         title = value[0].license_number;
-                        id = value[0].license_id;
+                        id = value[0].license_number;
                     }
 
                     /*
@@ -320,8 +307,7 @@
                         mustacheTpl[key], {
                             title: title,
                             id: id,
-                            expiration: expiration,
-                            concessionNumbers: concessions ? concessions.split(',') : false
+                            expiration: expiration
                         }
                     );
                 });
@@ -339,6 +325,7 @@
                     IPPR.loading();
                     setTimeout(function(){
                         IPPR.filtering();
+                        console.log(IPPR.data.data);
                     },300);
                 }
 
@@ -358,7 +345,7 @@
         /*
         ** ... get the geo json data
         */
-        $.getJSON('/data/na_license_concessions.geojson', function(data){
+        $.getJSON('/data/mw_licenses.geojson', function(data){
 
             /*
             ** ... for each map in the dom initialize the maps and populate with layers and markers
@@ -408,8 +395,8 @@
                     /*
                     ** ... extra data
                     */
-                    layer.ID = feature.properties.license_id;
-                    layer.company_id = feature.properties.operator_id;
+                    layer.ID = feature.properties.license_number;
+                    layer.company_id = feature.properties.company_id;
 
                     /*
                     ** ... push the layers for later use
@@ -422,7 +409,7 @@
                     var marker = L.marker(layer.getBounds().getCenter(), {
                         icon: L.divIcon({
                             className: 'Map-label',
-                            html: '<span>' + layer.number + '</span>'
+                            html: '<span>' + layer.license_number + '</span>'
                         })
                     }).addTo(IPPR.map.map[key]);
 
@@ -455,12 +442,12 @@
                         */
                         var elem, top;
                         if (that.is('.licenses')){
-                            elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.license_id +'"]');
+                            elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.license_number +'"]');
                             elem.click();
                             top = elem.position().top;
                             $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
                         } else if (that.is('.companies')){
-                            elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.operator_id +'"]');
+                            elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.company_id +'"]');
                             elem.click();
                             top = elem.position().top;
                             $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
@@ -512,14 +499,14 @@
     */
     IPPR.displayAdditionalInfo = function(item,type){
 
-        var tableData,title,mustacheTpl,finalTable,hierarchyTpl,finalHierarchy;
+        var tableData,title,mustacheTpl,finalTable,hierarchyTpl;
 
         /*
         ** ... if this is licence
         */
         if (type === 'licence'){
 
-
+            return false;
             /*
             ** ... append the title, change the background color
             */
@@ -537,7 +524,7 @@
             mustacheTpl = $(IPPR.dom.templates.licenceTable).html();
             Mustache.parse(mustacheTpl);
 
-            $.getJSON(IPPR.data.apiURL + "SELECT * FROM na_detailed_license_transfers WHERE license_id = " + item.data('id') + ' ORDER BY transfer_date&api_key=1393ddb863ac0c21094ec217476256a394c52444', function(data) {
+            $.getJSON(IPPR.data.apiURL + "SELECT * FROM na_detailed_license_transfers WHERE license_id = " + item.data('id') + ' ORDER BY transfer_date', function(data) {
 
                 // var sankeyData = [];
                 // [[ "Goverment of Namibia 100%", "Eco oil and gas 20%", 10, "20%"],[ "Eco oil and gas 20%", "Eco oil and gas 10%", 5, "10%" ],[ "Eco oil and gas 20%", "New Buyer 10%", 5, "10%" ],[ "Goverment of Namibia 100%", "Goverment of Namibia 80%", 8, "80%"]]
@@ -585,7 +572,6 @@
             } else {
                 IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
                 IPPR.dom.additionalInfo.find('.AdditionalInfo-title span').html(title);
-                $(IPPR.dom.sankey.desktop).removeClass(IPPR.states.hidden);
             }
         } else {
             /*
@@ -599,7 +585,7 @@
             $(IPPR.dom.sankey.desktop).addClass(IPPR.states.hidden);
             IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
 
-            tableData = IPPR.data.data[1][item.data('id')][0];
+            tableData = IPPR.data.data[0][item.data('id')][0];
             // ownedLicenses = item.data('ownedlicenses');
 
             mustacheTpl = $(IPPR.dom.templates.companyTable).html();
@@ -627,20 +613,20 @@
             ** SELECT * FROM na_people WHERE company_id = 6 ORDER BY name ASC
             */
 
-            $.getJSON('https://namibmap.carto.com/api/v2/sql/?q=SELECT * FROM na_people WHERE company_id = ' + item.data('id'), function(data) {
+            // $.getJSON('https://migodiyathu.carto.com/api/v2/sql/?q=SELECT * FROM mw_people WHERE company_id = ' + item.data('id'), function(data) {
 
-                finalHierarchy = Mustache.render(
-                    hierarchyTpl, {
-                        hierarchy: data.rows,
-                    }
-                );
+            //     finalHierarchy = Mustache.render(
+            //         hierarchyTpl, {
+            //             hierarchy: data.rows,
+            //         }
+            //     );
 
-                if (IPPR.states.mobile){
-                    $(IPPR.dom.lists.extra).find(IPPR.dom.hierarchy).html(finalHierarchy);
-                } else {
-                    IPPR.dom.additionalInfo.find(IPPR.dom.hierarchy).html(finalHierarchy).removeClass(IPPR.states.hidden);
-                }
-            });
+            //     if (IPPR.states.mobile){
+            //         $(IPPR.dom.lists.extra).find(IPPR.dom.hierarchy).html(finalHierarchy);
+            //     } else {
+            //         IPPR.dom.additionalInfo.find(IPPR.dom.hierarchy).html(finalHierarchy).removeClass(IPPR.states.hidden);
+            //     }
+            // });
 
             if (IPPR.states.mobile){
                 $(IPPR.dom.lists.extra).find(IPPR.dom.table).html(finalTable);
@@ -908,24 +894,13 @@
 
                         $.each(IPPR.helpers.groupBy(companies, 'license_number'), function(k, value){
 
-                            var concessions = '',
-                                comma = '';
-                            $.each(value, function(k,v){
-                                if (k + 1 < value.length){
-                                    comma = ',';
-                                } else {
-                                    comma = '';
-                                }
-                                concessions += v.concessions + comma;
-                            });
 
                             Mustache.parse(mustacheTpl[key]);
 
                             markup[key] += Mustache.render(
                                 mustacheTpl[key], {
                                     title: k,
-                                    id: value[0].license_id,
-                                    concessionNumbers: concessions ? concessions.split(',') : false
+                                    id: value[0].license_number,
                                 }
                             );
 
@@ -965,6 +940,8 @@
                 if(IPPR.states.desktop){
                     if (key === '1'){
                         IPPR.map.highlightLayer('2',id);
+                    } else if (key === '0'){
+                        IPPR.map.highlightLayer('1',id);
                     } else {
                         IPPR.map.highlightLayer(key,id);
                     }
