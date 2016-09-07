@@ -185,14 +185,14 @@
                     IPPR.map.resetLayers();
                 }
 
-                var key = type === 'licenses' ? 0 : 2,
+                var key = type === 'companies' ? 1 : 2,
                     listItems = $(IPPR.dom.lists.main+':visible').find('.collection-item'),
-                    ids = [];
+                    ids = [],
+                    found = [];
 
                 $.each(listItems, function(index, val) {
                     ids.push($(val).data('id'));
                 });
-
 
                 $.each(IPPR.map.layers[key], function(k,v){
                     if(IPPR.states.view === 'licenses' && $.inArray(v.ID, ids) < 0 || IPPR.states.view === 'companies' && $.inArray(v.company_id, ids) < 0){
@@ -206,14 +206,21 @@
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.default);
                         IPPR.map.layers[key][k].isActive = true;
                         IPPR.map.markers[key][k].isActive = true;
+
+                        found.push(v.boundsCalculated);
                     }
                 });
 
                 setTimeout(function(){
                     var size = $(IPPR.dom.lists.main+':visible').find('.collection-item').size();
                     $(IPPR.dom.lists.main).find(IPPR.dom.lists.count).html('('+size+')');
+                    if (found.length){
+                        IPPR.map.map[key].fitBounds(found, {
+                            paddingTopLeft: [600,0],
+                            maxZoom: 11
+                        });
+                    }
                 },50);
-
 
             }
         },
@@ -491,11 +498,14 @@
             view = $(this).data('to');
 
         IPPR.states.view = view;
-
         $('a[data-view="'+view+'"]').click();
-        $('.collection-item[data-id="'+id+'"]').click();
-        var top = $('.collection-item[data-id="'+id+'"]').position().top;
-        $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
+
+        setTimeout(function(){
+            $('.collection-item[data-id="'+id+'"]').click();
+            var top = $('.collection-item[data-id="'+id+'"]').last().position().top;
+            $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
+        },100);
+
     });
 
     /*

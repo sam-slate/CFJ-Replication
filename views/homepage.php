@@ -194,8 +194,6 @@
                             </div>
                         </div>
 
-                        <a class="List-infoLink orange js-showAdditionalInfo hide-on-large-only"><i class="material-icons right">arrow_right</i>Transaction history</a>
-
 
                         <div class="List-holder">
                             <p class="List-headerInactive">
