@@ -193,7 +193,7 @@
                     <a href="https://creativecommons.org/licenses/by-sa/4.0/" title="Creative Commons licence">
                         <img src="/images/dist/cc.png" alt="" width="117" height="33" class="Footer--cc" />
                     </a>
-                    <a href="https://github.com/the-engine-room/ippr/" title="IPPR Github repo">
+                    <a href="https://github.com/the-engine-room/Malawi-Replication" title="IPPR Github repo">
                         <img src="/images/dist/github.png" alt="" width="126" height="32" class="Footer--github" />
                     </a>
                 </div>

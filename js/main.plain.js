@@ -212,12 +212,12 @@
                 setTimeout(function () {
                     var size = $(IPPR.dom.lists.main + ':visible').find('.collection-item').size();
                     $(IPPR.dom.lists.main).find(IPPR.dom.lists.count).html('(' + size + ')');
-                    if (found.length) {
-                        IPPR.map.map[key].fitBounds(found, {
-                            paddingTopLeft: [600, 0],
-                            maxZoom: 11
-                        });
-                    }
+                    // if (found.length){
+                    //     IPPR.map.map[key].fitBounds(found, {
+                    //         paddingTopLeft: [600,0],
+                    //         maxZoom: 11
+                    //     });
+                    // }
                 }, 50);
             }
         },
