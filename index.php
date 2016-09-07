@@ -21,8 +21,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Transparent Oil Malawi</title>
-    <meta name="description" content="DIIG Malawi: explore and extract data on Malawi's minerals.">
+    <title>Migodi Yathu | Diig.io</title>
+    <meta name="description" content="Migodi Yathu: explore and extract data on Malawi's minerals.">
 
     <script>
         (function () {
@@ -61,8 +61,8 @@
         }());
     </script>
 
-    <meta property="og:site_name" content="DIIG Malawi" />
-    <meta property="og:title" content="DIIG Malawi" />
+    <meta property="og:site_name" content="Migodi Yathu | diig.io" />
+    <meta property="og:title" content="Migodi Yathu | diig.io" />
 
     <meta property="og:description" content="Explore and extract data on Malawi's minerals." />
     <meta property="og:url" content="<?php echo $URL ?>" />
@@ -107,7 +107,7 @@
                     <h1 class="Header-title">
                         <a href="/">
                             <span class="Header-title--secondary">Data and Info for Industry Governance</span>
-                            <span class="Header-title--primary">Malawi</span>
+                            <span class="Header-title--primary">Migodi Yathu</span>
                         </a>
                     </h1>
                 </div>
@@ -170,7 +170,7 @@
                 <div class="col s12">
                     <p class="Header-title">
                         <span class="Header-title--secondary">Data and Info for Industry Governance</span>
-                        <span class="Header-title--primary">Malawi</span>
+                        <span class="Header-title--primary">Migodi Yathu</span>
                     </p>
                 </div>
             </div>

@@ -1,17 +1,6 @@
 <div class="StaticContent About">
     <div class="row">
         <div class="col s12 m6 offset-m3">
-            <h1>
-                Migodi Yathu<br />
-                <small>Explore and extract data on Malawi’s minerals</small>    
-            
-            </h1>
-
-            
-
-            <h2>An investigative platform for advocacy</h2>
-
-
             <p><strong>Migodi Yathu</strong> enables you to map, find, browse and search companies involved in exploring and extracting Malawi’s minerals. You can find the type of licences that have been issued, the companies that are involved and the minerals being sought. You can also filter the data to learn which projects and companies are operating near your home.</p>
 
             <p>This information is in the public domain but generally very hard to access and use in advocacy. Ongoing data collection requires scraping and searching the web, visits to different government offices to find records for companies, sorting through hardcopies of many, many documents, and more. The portal aims to help you dig deeper into Malawi’s minerals data that can be used in your advocacy for promoting responsible resource governance.  </p>
@@ -26,8 +15,8 @@
 
 
             <div class="matchbox-box">
-              
-             
+
+
 
 
               <div class="Block row">
