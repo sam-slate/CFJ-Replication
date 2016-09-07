@@ -155,9 +155,17 @@
                             setTimeout(function(){
                                 if (IPPR.map.markers[key][k]._latlng.lat && IPPR.map.markers[key][k]._latlng.lng){
                                     IPPR.map.map[key].setView(new L.LatLng(IPPR.map.markers[key][k]._latlng.lat, IPPR.map.markers[key][k]._latlng.lng), 6);
+
+                                    IPPR.map.map[key].fitBounds(IPPR.map.layers[key][k].boundsCalculated);
                                 }
                             },200);
+                        } else {
+                            IPPR.map.map[key].fitBounds(IPPR.map.layers[key][k].boundsCalculated, {
+                                paddingTopLeft: [600,0],
+                                maxZoom: 11
+                            });
                         }
+
                     }
 
                 });
@@ -239,10 +247,6 @@
     };
 
 
-    /*
-    ** Load the google chart sankey package
-    */
-    // google.charts.load('current', {'packages':['sankey']});
 
     /*
     ** Set / remove loading classes while the data loads
@@ -363,7 +367,7 @@
                 IPPR.map.map[key] = L.map($('.Map').eq(key)[0],{
                     scrollWheelZoom: false,
                     zoomControl: false
-                }).setView([-13.198, 25.797], 6);
+                }).setView([-13.198, 30.797], 7);
 
                 /*
                 ** ... change zoom controls to be in the bottom right corner
@@ -384,6 +388,7 @@
                 */
                 function onEachLayer(feature, layer) {
 
+                    feature.properties.boundsCalculated = layer.getBounds();
                     /*
                     ** ... append the data to each layer
                     */
@@ -498,81 +503,13 @@
     */
     IPPR.displayAdditionalInfo = function(item,type){
 
-        var tableData,title,mustacheTpl,finalTable,hierarchyTpl;
+        var tableData,mustacheTpl,finalTable,hierarchyTpl;
 
         /*
         ** ... if this is licence
         */
-        if (type === 'licence'){
+        if (type === 'company'){
 
-            return false;
-            /*
-            ** ... append the title, change the background color
-            */
-            $(IPPR.dom.additionalInfoTitle).html(IPPR.dom.additionalInfoStrings[type]);
-            $(IPPR.dom.additionalInfoHeader).removeClass('green').addClass('blue');
-
-            /*
-            ** ... get the data from data attributes
-            */
-            title = item.find(IPPR.dom.lists.title).html();
-
-            /*
-            ** ... get and parse the template for the table
-            */
-            mustacheTpl = $(IPPR.dom.templates.licenceTable).html();
-            Mustache.parse(mustacheTpl);
-
-            $.getJSON(IPPR.data.apiURL + "SELECT * FROM na_detailed_license_transfers WHERE license_id = " + item.data('id') + ' ORDER BY transfer_date', function(data) {
-
-                // var sankeyData = [];
-                // [[ "Goverment of Namibia 100%", "Eco oil and gas 20%", 10, "20%"],[ "Eco oil and gas 20%", "Eco oil and gas 10%", 5, "10%" ],[ "Eco oil and gas 20%", "New Buyer 10%", 5, "10%" ],[ "Goverment of Namibia 100%", "Goverment of Namibia 80%", 8, "80%"]]
-
-
-                finalTable = Mustache.render(
-                    mustacheTpl, {
-                        tableRows: Array.from(data.rows),
-                    }
-                );
-
-                // $.each(data.rows, function(index, val) {
-                //     sankeyData.push([val.seller,val.buyer, Math.ceil(val.buyer_stake_after || 100), val.seller_stake_prior + '% ->' + val.buyer_stake_after + '%']);
-                // });
-
-                if (IPPR.states.mobile){
-
-                    /*
-                    ** ... draw sankey graph
-                    */
-                    // IPPR.sankey(sankeyData, IPPR.dom.sankey.mobile);
-                    $(IPPR.dom.lists.info).find(IPPR.dom.table).html(finalTable);
-                    IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
-                } else {
-                    // $(IPPR.dom.sankey.desktop).removeClass(IPPR.states.hidden);
-                    // IPPR.sankey(sankeyData, IPPR.dom.sankey.desktop);
-                    IPPR.dom.additionalInfo.find(IPPR.dom.table).html(finalTable);
-                }
-
-            });
-
-            /*
-            ** ... hide the company addition info because we are on licences
-            */
-            IPPR.dom.additionalInfo.find(IPPR.dom.ownedLicenses).addClass(IPPR.states.hidden);
-            IPPR.dom.additionalInfo.find(IPPR.dom.hierarchy).addClass(IPPR.states.hidden);
-
-
-            /*
-            ** ... append data to the DOM
-            */
-            if (IPPR.states.mobile){
-                $(IPPR.dom.lists.info).find(IPPR.dom.lists.infoName).html(title);
-                IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
-            } else {
-                IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
-                IPPR.dom.additionalInfo.find('.AdditionalInfo-title span').html(title);
-            }
-        } else {
             /*
             ** ... if this is company, get the data and append to the DOM
             */
@@ -601,35 +538,8 @@
                 }
             );
 
-            // finalownedLicenses = Mustache.render(
-            //     ownedLicensesTpl, {
-            //         licence: Array.from(ownedLicenses),
-            //     }
-            // );
-
-            /*
-            ** ... get the company info and append to the DOM
-            ** SELECT * FROM na_people WHERE company_id = 6 ORDER BY name ASC
-            */
-
-            // $.getJSON('https://migodiyathu.carto.com/api/v2/sql/?q=SELECT * FROM mw_people WHERE company_id = ' + item.data('id'), function(data) {
-
-            //     finalHierarchy = Mustache.render(
-            //         hierarchyTpl, {
-            //             hierarchy: data.rows,
-            //         }
-            //     );
-
-            //     if (IPPR.states.mobile){
-            //         $(IPPR.dom.lists.extra).find(IPPR.dom.hierarchy).html(finalHierarchy);
-            //     } else {
-            //         IPPR.dom.additionalInfo.find(IPPR.dom.hierarchy).html(finalHierarchy).removeClass(IPPR.states.hidden);
-            //     }
-            // });
-
             if (IPPR.states.mobile){
                 $(IPPR.dom.lists.extra).find(IPPR.dom.table).html(finalTable);
-                // $(IPPR.dom.lists.extra).find('.OwnedLicenses').html(finalownedLicenses);
                 IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
             } else {
                 IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
@@ -874,7 +784,7 @@
                         } else {
 
                             Mustache.parse(mustacheTpl[key]);
-                            console.log(company);
+
                             markup[key] += Mustache.render(
                                 mustacheTpl[key], {
                                     active: key <= 2 ? true : false,
