@@ -343,7 +343,7 @@
         /*
         ** ... get the geo json data
         */
-        $.getJSON('/data/mw_licenses.geojson', function (data) {
+        $.getJSON('/data/mw_licenses-1.geojson', function (data) {
 
             /*
             ** ... for each map in the dom initialize the maps and populate with layers and markers
