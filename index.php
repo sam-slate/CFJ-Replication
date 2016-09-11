@@ -106,7 +106,7 @@
                 <div class="col s12">
                     <h1 class="Header-title">
                         <a href="/">
-                            <span class="Header-title--secondary">Data and Info for Industry Governance</span>
+                            <span class="Header-title--secondary">Malawi</span>
                             <span class="Header-title--primary">Migodi Yathu</span>
                         </a>
                     </h1>

@@ -35,6 +35,32 @@
               <p><a href="https://www.theengineroom.org/projects/institute-for-public-policy-research/">Learn more about how IPPR and The Engine Room developed this project.</a></p>
             </div>
 
+            <h2>Partners</h2>
+
+            <div class="Block row">
+              <div class="col s4">
+                <a href="http://www.nrjnmalawi.mw/" title="NRJN - Natural Resource Justice Network">
+                    <img src="/images/dist/nrjn.png" alt="NRJN - Natural Resource Justice Network" />
+                </a>
+              </div>
+              <div class="col s8">
+              <p class="Block-title"> <a href="http://www.nrjnmalawi.mw/" title="NRJN - Natural Resource Justice Network">NRJN</a> - Natural Resource Justice Network </p>
+              <p> Established in 2007, NRJN is the only network in Malawi that draws together actors and activists in the civic space working on the extractive industries for socio- economic justice and equitable and sustainable exploitation. Citizens for Justice is currently serves as the Secretariat for NRJN</p>
+              </div>
+            </div>
+
+            <div class="Block row">
+              <div class="col s4">
+                <a href="http://www.publishwhatyoupay.org/members/malawi/" title="PWYP Malawi - Publish What You Pay Malawi">
+                    <img src="/images/dist/pwyp.png" alt="PWYP Malawi - Publish What You Pay Malawi" />
+                </a>
+              </div>
+              <div class="col s8">
+              <p class="Block-title"> <a href="http://www.publishwhatyoupay.org/members/malawi/" title="PWYP Malawi - Publish What You Pay Malawi">PWYP Malawi</a> - Publish What You Pay Malawi </p>
+              <p>PWYP Malawi joined the global coalition of over 40 countries that through PWYP are calling call for an open and accountable extractive sector that improves the lives of people and is carried out in a responsible manner. PWYP Malawi falls under the umbrella of NRJN and is currently hosted by Citizens for Justice.</p>
+              </div>
+            </div>
+
             <h2>Main Contributors</h2>
 
             <div class="Block row">
