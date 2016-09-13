@@ -279,8 +279,8 @@
                 <div class="input-field Search-field">
                     <i class="material-icons small prefix Search-trigger">search</i>
                     <i class="material-icons small prefix Search-remove">close</i>
-                    <input id="search-tab-3" type="text" class="Search-input" />
-                    <label for="search-tab-3">Filter by name</label>
+                    <input id="search-tab-2" type="text" class="Search-input" />
+                    <label for="search-tab-2">Filter by name</label>
                 </div>
 
             </div>
@@ -304,8 +304,8 @@
                             <div class="input-field Search-field">
                                 <i class="material-icons small prefix Search-trigger">search</i>
                                 <i class="material-icons small prefix Search-remove">close</i>
-                                <input id="search-tab-3" type="text" class="Search-input" />
-                                <label for="search-tab-3">Filter by name</label>
+                                <input id="search-tab-2" type="text" class="Search-input" />
+                                <label for="search-tab-2">Filter by name</label>
                             </div>
 
                         </div>
@@ -353,6 +353,46 @@
             </div>
 
 
+            
+            <script type="x-tmpl-mustache" class="main-tpl">
+                <li class="collection-item" data-id="{{ id }}" data-table="{{ table }}">
+                    <p class="List-title">{{ title }}</p>
+                    {{#concessionNumbers}}
+                        <span class="List-number brand green">{{.}}</span>
+                    {{/concessionNumbers}}
+                    <span class="u-isHidden concessionNumbers">
+                        {{#concessionNumbers}}
+                            {{.}}
+                        {{/concessionNumbers}}
+                    </span>
+                    {{#expiration}}<span class="expiration u-isHidden">1</span>{{/expiration}}
+                </li>
+            </script>
+
+            <script type="x-tmpl-mustache" class="extra-tpl">
+                <li{{#active}} class="active"{{/active}}>
+                    {{#companyInfo}}
+                        <div class="collapsible-header{{#active}} active{{/active}}">
+                            <div class="List-title">{{ company_name }}</div>
+                            <i class="material-icons">keyboard_arrow_down</i>
+                        </div>
+                        <div class="collapsible-body"{{#active}} style="display: block;"{{/active}}>
+
+                            <ul>
+                                <li>
+                                    <p><strong>Address:</strong> {{company_address}}{{^company_address}}<i>unknown</i>{{/company_address}}</p>
+                                    <p><strong>Jurisdiction:</strong> {{company_jurisdiction}}{{^company_jurisdiction}}<i>unknown</i>{{/company_jurisdiction}}</p>
+                                    <p><strong>Headquarters:</strong> {{company_hq}}{{^company_hq}}<i>unknown</i>{{/company_hq}}</p>
+                                    <p><strong>Formed on:</strong> {{company_formed}}{{^company_formed}}<i>unknown</i>{{/company_formed}}</p>
+                                    <p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}{{^company_website}}<i>unknown</i>{{/company_website}}</a></p>
+                                </li>
+                            </ul>
+                            <p class="List-switch" data-to="companies" data-id="{{ company_id }}"><i class="material-icons">info</i></p>
+                        </div>
+                    {{/companyInfo}}
+                </li>
+            </script>
+        
         </div>
 
         <div class="AdditionalInfo u-isHidden">

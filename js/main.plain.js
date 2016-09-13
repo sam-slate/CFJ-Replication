@@ -99,9 +99,15 @@
                     name: 'licenses',
                     sql: "SELECT l.cartodb_id as l_cartodb_id, l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.cartodb_id as company_id, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_companies c WHERE l.company_id = c.cartodb_id",
                     groupBy: 'license_number'
+                },
+                2: {
+                    name: 'oils',
+                    sql: 'SELECT l.area AS license_area, l.date_expires AS license_data_expires, l.date_granted AS license_granted, l.date_issued AS license_issued, l.district AS license_district, l.license_number AS license_number, l.status AS license_status, c.cartodb_id AS company_id, c.name AS company_name, c.address AS company_address, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_license_companies lc, mw_companies c WHERE  l.cartodb_id = lc.license_id AND lc.company_id = c.cartodb_id AND l.license_type_id = 5',
+                    groupBy: 'license_number'
                 }
             }
         },
+
         map: {
             map: [],
             layers: [],
@@ -288,6 +294,7 @@
                 /*
                 ** .. run through the data, parse the templates
                 */
+
                 $.each(IPPR.data.data[key], function (k, value) {
 
                     /*
@@ -499,7 +506,7 @@
         ** ... if this is licence
         */
         if (type === 'company') {
-
+            console.log(item);
             /*
             ** ... if this is company, get the data and append to the DOM
             */
@@ -509,6 +516,8 @@
 
             $(IPPR.dom.sankey.desktop).addClass(IPPR.states.hidden);
             IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
+
+            console.log(IPPR.data.data);
 
             tableData = IPPR.data.data[0][item.data('id')][0];
             // ownedLicenses = item.data('ownedlicenses');
@@ -736,20 +745,25 @@
 
                     if (IPPR.states.view === 'companies') {
                         IPPR.states.highlight = 'companies';
-                    } else {
+                    } else if (IPPR.states.highlight === 'licenses') {
                         IPPR.states.highlight = 'licenses';
+                    } else {
+                        IPPR.states.highlight = 'oil';
                     }
 
                     if (IPPR.states.desktop) {
 
-                        if (IPPR.states.view === 'licenses') {
+                        if (IPPR.states.view === 'licenses' || IPPR.states.view === 'oil') {
                             IPPR.displayAdditionalInfo($(this), 'licence');
                         } else {
                             IPPR.displayAdditionalInfo($(this), 'company');
                         }
                     } else {
+
+                        console.log(IPPR.states.view);
+
                         $(this).closest(IPPR.dom.lists.holder).addClass(IPPR.states.hidden);
-                        if (IPPR.states.view !== 'licenses') {
+                        if (IPPR.states.view !== 'licenses' && IPPR.states.view !== 'oil') {
                             IPPR.displayAdditionalInfo($(this), 'company');
                         }
                     }
