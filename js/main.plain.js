@@ -99,9 +99,15 @@
                     name: 'licenses',
                     sql: "SELECT l.cartodb_id as l_cartodb_id, l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.cartodb_id as company_id, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_companies c WHERE l.company_id = c.cartodb_id",
                     groupBy: 'license_number'
+                },
+                2: {
+                    name: 'oil',
+                    sql: 'SELECT l.area AS license_area, l.date_expires AS license_data_expires, l.date_granted AS license_granted, l.date_issued AS license_issued, l.district AS license_district, l.license_number AS license_number, l.status AS license_status, c.cartodb_id AS company_id, c.name AS company_name, c.address AS company_address, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_license_companies lc, mw_companies c WHERE  l.cartodb_id = lc.license_id AND lc.company_id = c.cartodb_id AND l.license_type_id = 5',
+                    groupBy: 'license_number'
                 }
             }
         },
+
         map: {
             map: [],
             layers: [],
@@ -144,7 +150,8 @@
                         IPPR.map.markers[key][k].isActive = false;
                     }
 
-                    if (IPPR.states.highlight === 'licenses' && value.ID === id || IPPR.states.highlight === 'companies' && value.company_id === id) {
+                    if (IPPR.states.highlight === 'licenses' && value.ID === id || IPPR.states.highlight === 'oil' && value.ID === id || IPPR.states.highlight === 'companies' && value.company_id === id) {
+
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.active);
                         IPPR.map.layers[key][k].bringToFront();
                         IPPR.map.layers[key][k].isActive = true;
@@ -183,7 +190,7 @@
                     IPPR.map.resetLayers();
                 }
 
-                var key = type === 'companies' ? 1 : 2,
+                var key = type === 'companies' ? 1 : type === 'licenses' ? 2 : 3,
                     listItems = $(IPPR.dom.lists.main + ':visible').find('.collection-item'),
                     ids = [],
                     found = [];
@@ -193,7 +200,7 @@
                 });
 
                 $.each(IPPR.map.layers[key], function (k, v) {
-                    if (IPPR.states.view === 'licenses' && $.inArray(v.ID, ids) < 0 || IPPR.states.view === 'companies' && $.inArray(v.company_id, ids) < 0) {
+                    if (IPPR.states.view === 'licenses' && $.inArray(v.ID, ids) < 0 || IPPR.states.view === 'oil' && $.inArray(v.ID, ids) < 0 || IPPR.states.view === 'companies' && $.inArray(v.company_id, ids) < 0) {
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.filtered);
                         $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.active);
                         $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.selected);
@@ -288,6 +295,7 @@
                 /*
                 ** .. run through the data, parse the templates
                 */
+
                 $.each(IPPR.data.data[key], function (k, value) {
 
                     /*
@@ -348,6 +356,7 @@
             /*
             ** ... for each map in the dom initialize the maps and populate with layers and markers
             */
+
             $.each(IPPR.dom.map, function (key, val) {
 
                 var that = $(val);
@@ -440,7 +449,7 @@
                         ** ... click the item in the main list, scroll list to the top
                         */
                         var elem, top;
-                        if (that.is('.licenses')) {
+                        if (that.is('.licenses') || that.is('.oil')) {
                             elem = $(IPPR.dom.lists.main).find('li[data-id="' + feature.properties.license_number + '"]');
                             elem.click();
                             top = elem.position().top;
@@ -494,7 +503,6 @@
     IPPR.displayAdditionalInfo = function (item, type) {
 
         var tableData, mustacheTpl, finalTable, hierarchyTpl;
-
         /*
         ** ... if this is licence
         */
@@ -719,7 +727,7 @@
 
                 if (IPPR.states.mobile) {
                     IPPR.dom.dataHolder.css({ transform: 'translate(-33.3333%,0)' });
-                    if (IPPR.states.view === 'licenses') {
+                    if (IPPR.states.view === 'licenses' || IPPR.states.view === 'oil') {
                         IPPR.dom.map.addClass(IPPR.states.hidden);
                     } else {
                         IPPR.dom.mapInline.removeClass(IPPR.states.hidden);
@@ -736,20 +744,24 @@
 
                     if (IPPR.states.view === 'companies') {
                         IPPR.states.highlight = 'companies';
-                    } else {
+                    } else if (IPPR.states.view === 'licenses') {
                         IPPR.states.highlight = 'licenses';
+                    } else {
+                        IPPR.states.highlight = 'oil';
                     }
 
                     if (IPPR.states.desktop) {
 
                         if (IPPR.states.view === 'licenses') {
                             IPPR.displayAdditionalInfo($(this), 'licence');
+                        } else if (IPPR.states.view === 'oil') {
+                            IPPR.displayAdditionalInfo($(this), 'oil');
                         } else {
                             IPPR.displayAdditionalInfo($(this), 'company');
                         }
                     } else {
                         $(this).closest(IPPR.dom.lists.holder).addClass(IPPR.states.hidden);
-                        if (IPPR.states.view !== 'licenses') {
+                        if (IPPR.states.view !== 'licenses' && IPPR.states.view !== 'oil') {
                             IPPR.displayAdditionalInfo($(this), 'company');
                         }
                     }
@@ -812,15 +824,18 @@
                     $('#tab-' + key).find(IPPR.dom.lists.headerInActive).addClass(IPPR.states.hidden);
 
                     IPPR.map.map[key].invalidateSize();
-                } else {
-                    IPPR.states.highlight = 'licenses';
+                } else if (IPPR.states.view === 'licenses') {} else {
+                    IPPR.states.highlight = 'oil';
                 }
 
                 if (IPPR.states.desktop) {
+
                     if (key === '1') {
                         IPPR.map.highlightLayer('2', id);
                     } else if (key === '0') {
                         IPPR.map.highlightLayer('1', id);
+                    } else if (key === '2') {
+                        IPPR.map.highlightLayer('4', id);
                     } else {
                         IPPR.map.highlightLayer(key, id);
                     }
