@@ -82,7 +82,7 @@
             mobile: false,
             desktop: false,
             view: 'companies',
-            hightlight: 'companies',
+            highlight: 'companies',
             map: false,
             filters: false
         },
@@ -92,12 +92,12 @@
             tabs: {
                 0: {
                     name: 'companies',
-                    sql: "SELECT l.cartodb_id as l_cartodb_id, l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.cartodb_id as company_id, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_companies c WHERE l.company_id = c.cartodb_id",
+                    sql: "SELECT l.cartodb_id as l_cartodb_id, l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.cartodb_id as company_id, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_companies c WHERE l.company_id = c.cartodb_id  AND l.license_type_id != 5",
                     groupBy: 'company_id'
                 },
                 1: {
                     name: 'licenses',
-                    sql: "SELECT l.cartodb_id as l_cartodb_id, l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.cartodb_id as company_id, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_companies c WHERE l.company_id = c.cartodb_id",
+                    sql: "SELECT l.cartodb_id as l_cartodb_id, l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.cartodb_id as company_id, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_companies c WHERE l.company_id = c.cartodb_id AND l.license_type_id != 5",
                     groupBy: 'license_number'
                 },
                 2: {
@@ -136,12 +136,28 @@
                     dashArray: '',
                     color: 'transparent',
                     fillOpacity: 1
+                },
+                oil: {
+                    weight: 1,
+                    fill: true,
+                    fillColor: '#349936',
+                    dashArray: '',
+                    color: '#000',
+                    fillOpacity: 0.65
+                },
+                hidden: {
+                    weight: 0,
+                    fill: true,
+                    fillColor: '#000',
+                    dashArray: '',
+                    color: '#000',
+                    fillOpacity: 0.0
                 }
+
             },
             highlightLayer: function highlightLayer(key, id) {
 
                 $.each(IPPR.map.layers[key], function (k, value) {
-
                     if (!IPPR.states.filters) {
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.default);
                         $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.active);
@@ -178,7 +194,22 @@
             resetLayers: function resetLayers() {
                 $.each(IPPR.map.layers, function (k, v) {
                     $.each(v, function (index) {
-                        IPPR.map.layers[k][index].setStyle(IPPR.map.styles.default);
+                        if (IPPR.states.view === 'oil') {
+                            IPPR.map.layers[k][index].setStyle(IPPR.map.styles.default);
+                            $.each(IPPR.map.layers[4], function (i, layer) {
+                                if (layer.license_type !== 5) {
+                                    IPPR.map.layers[4][i].setStyle(IPPR.map.styles.hidden);
+                                }
+                            });
+                        } else {
+                            IPPR.map.layers[k][index].setStyle(IPPR.map.styles.default);
+                            $.each(IPPR.map.layers[k], function (i, layer) {
+                                if (layer.license_type === 5) {
+                                    IPPR.map.layers[k][i].setStyle(IPPR.map.styles.hidden);
+                                }
+                            });
+                        }
+
                         $(IPPR.map.markers[k][index]._icon).removeClass(IPPR.states.active);
                         $(IPPR.map.markers[k][index]._icon).removeClass(IPPR.states.selected);
                     });
@@ -356,7 +387,6 @@
             /*
             ** ... for each map in the dom initialize the maps and populate with layers and markers
             */
-
             $.each(IPPR.dom.map, function (key, val) {
 
                 var that = $(val);
@@ -389,6 +419,10 @@
                 /*
                 ** ... function to be executed on each layer
                 */
+
+                // data for the mineral maps and oil maps in two different arrays to populate maps selectively
+
+
                 function onEachLayer(feature, layer) {
 
                     feature.properties.boundsCalculated = layer.getBounds();
@@ -404,11 +438,22 @@
                     */
                     layer.ID = feature.properties.license_number;
                     layer.company_id = feature.properties.company_id;
+                    layer.license_type = feature.properties.license_type_id;
 
                     /*
                     ** ... push the layers for later use
                     */
-                    IPPR.map.layers[key].push(layer);
+                    // if the map is the oil map...
+                    if (key === 4 && feature.properties.license_type_id === 5) {
+                        // add only to oil map
+                        //oilData.features[feature.properties.cartodb_id].push(feature);
+                        console.log('OIL');
+                        IPPR.map.layers[4].push(layer);
+                    } else {
+                        // add to the other maps
+                        IPPR.map.layers[key].push(layer);
+                        //mineralData.features[feature.properties.cartodb_id].push(feature);
+                    }
 
                     /*
                     ** ... add labels to the polygons
@@ -473,7 +518,8 @@
                 ** ... parse the geojson data and add it to the map
                 */
                 L.geoJson([data], {
-                    style: IPPR.map.styles.default,
+                    //style: IPPR.map.styles.default,
+                    style: IPPR.map.resetLayers(),
                     onEachFeature: onEachLayer
                 }).addTo(IPPR.map.map[key]);
             });
@@ -674,8 +720,6 @@
             IPPR.dom.filters.searchRemove.click();
             IPPR.filters.clear();
 
-            IPPR.map.resetLayers();
-
             /*
             ** ... we need to reset the leaflet state so it repositions the map view
             */
@@ -688,6 +732,8 @@
             }, 100);
             IPPR.states.view = $(this).data('view');
             IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
+
+            IPPR.map.resetLayers();
         });
 
         /*

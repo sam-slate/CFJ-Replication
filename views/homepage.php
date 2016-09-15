@@ -387,7 +387,7 @@
                                     <p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}{{^company_website}}<i>unknown</i>{{/company_website}}</a></p>
                                 </li>
                             </ul>
-                            <p class="List-switch" data-to="companies" data-id="{{ company_id }}"><i class="material-icons">info</i></p>
+                            <!-- <p class="List-switch" data-to="companies" data-id="{{ company_id }}"><i class="material-icons">info</i></p> -->
                         </div>
                     {{/companyInfo}}
                 </li>
