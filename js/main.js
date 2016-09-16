@@ -197,25 +197,9 @@
             resetLayers: function(){
                 $.each(IPPR.map.layers, function(k,v){
                     $.each(v, function(index) {
-                        if(IPPR.states.view === 'oil'){
-                            IPPR.map.layers[k][index].setStyle(IPPR.map.styles.default);
-                            $.each(IPPR.map.layers[4], function(i, layer){
-                                if(layer.license_type !== 5) {
-                                    IPPR.map.layers[4][i].setStyle(IPPR.map.styles.hidden);
-                                }                    
-                            });
-                        } else {
-                            IPPR.map.layers[k][index].setStyle(IPPR.map.styles.default);
-                            $.each(IPPR.map.layers[k], function(i, layer){
-                                if(layer.license_type === 5) {
-                                    IPPR.map.layers[k][i].setStyle(IPPR.map.styles.hidden);
-                                }                    
-                            });
-                        }
-                        
-                        
-                        $(IPPR.map.markers[k][index]._icon).removeClass(IPPR.states.active);
-                        $(IPPR.map.markers[k][index]._icon).removeClass(IPPR.states.selected);
+                       IPPR.map.layers[k][index].setStyle(IPPR.map.styles.default);
+                       $(IPPR.map.markers[k][index]._icon).removeClass(IPPR.states.active);
+                       $(IPPR.map.markers[k][index]._icon).removeClass(IPPR.states.selected);
                     });
                 });
             },
@@ -397,40 +381,47 @@
         /*
         ** ... get the geo json data
         */
-        $.getJSON('/data/mw_licenses-1.geojson', function(data){
+        $.getJSON('/data/mw-not-oil-licenses.geojson', function(data){
 
             /*
             ** ... for each map in the dom initialize the maps and populate with layers and markers
             */
             $.each(IPPR.dom.map, function(key,val){
                 
+                // console.log(key);
+                
                 var that = $(val);
 
+               
+                    
+                
+                
                 IPPR.map.layers[key] = [];
                 IPPR.map.markers[key] = [];
 
                 /*
                 ** ... init map
                 */
-                IPPR.map.map[key] = L.map($('.Map').eq(key)[0],{
-                    scrollWheelZoom: false,
-                    zoomControl: false
-                }).setView([-13.198, 30.797], 7);
-
-                /*
-                ** ... change zoom controls to be in the bottom right corner
-                */
-                L.control.zoom({
-                     position:'bottomright'
-                }).addTo(IPPR.map.map[key]);
-
-                /*
-                ** ... base layer with the map of the world
-                */
-                L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
-                    maxZoom: 18
-                }).addTo(IPPR.map.map[key]);
-
+                if(key !== 4){ 
+                    IPPR.map.map[key] = L.map($('.Map').eq(key)[0],{
+                        scrollWheelZoom: false,
+                        zoomControl: false
+                    }).setView([-13.198, 30.797], 7);
+    
+                    /*
+                    ** ... change zoom controls to be in the bottom right corner
+                    */
+                    L.control.zoom({
+                         position:'bottomright'
+                    }).addTo(IPPR.map.map[key]);
+    
+                    /*
+                    ** ... base layer with the map of the world
+                    */
+                    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
+                        maxZoom: 18
+                    }).addTo(IPPR.map.map[key]);
+                }
                 /*
                 ** ... function to be executed on each layer
                 */
@@ -537,15 +528,179 @@
                 /*
                 ** ... parse the geojson data and add it to the map
                 */
+                
+                if(key !== 4) { 
+                    L.geoJson([data], {
+                        //style: IPPR.map.styles.default,
+                        style: IPPR.map.resetLayers(),
+                        onEachFeature: onEachLayer
+                    })
+                    .addTo(IPPR.map.map[key]);
+                }
+            });
+            
+            
+        });
+        
+        
+        /*
+        ** ... get the geo json data
+        */
+        $.getJSON('/data/mw-oil-licenses.geojson', function(data){
+
+            /*
+            ** ... for each map in the dom initialize the maps and populate with layers and markers
+            */
+            $.each(IPPR.dom.map, function(key,val){
+                
+                console.log(key);
+                
+                var that = $(val);
+
+                IPPR.map.layers[key] = [];
+                IPPR.map.markers[key] = [];
+
+                /*
+                ** ... init map
+                */
+                if(key === 4) {
+                    IPPR.map.map[key] = L.map($('.Map').eq(key)[0],{
+                        scrollWheelZoom: false,
+                        zoomControl: false
+                    }).setView([-13.198, 30.797], 7);
+    
+                    /*
+                    ** ... change zoom controls to be in the bottom right corner
+                    */
+                    L.control.zoom({
+                         position:'bottomright'
+                    }).addTo(IPPR.map.map[key]);
+    
+                    /*
+                    ** ... base layer with the map of the world
+                    */
+                    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
+                        maxZoom: 18
+                    }).addTo(IPPR.map.map[key]);
+                }
+                /*
+                ** ... function to be executed on each layer
+                */
+                
+                // data for the mineral maps and oil maps in two different arrays to populate maps selectively
+                
+                
+                
+                function onEachLayer(feature, layer) {
+
+                    feature.properties.boundsCalculated = layer.getBounds();
+                    /*
+                    ** ... append the data to each layer
+                    */
+                    $.each(feature.properties, function(index, val) {
+                       layer[index] = val;
+                    });
+                    
+                    
+                    /*
+                    ** ... extra data
+                    */
+                    layer.ID = feature.properties.license_number;
+                    layer.company_id = feature.properties.company_id;
+                    layer.license_type = feature.properties.license_type_id;
+
+                    /*
+                    ** ... push the layers for later use
+                    */
+                    // if the map is the oil map...
+                    if(key === 4 && feature.properties.license_type_id === 5) {
+                       // add only to oil map
+                       //oilData.features[feature.properties.cartodb_id].push(feature);
+                       console.log('OIL');
+                       IPPR.map.layers[4].push(layer);
+                    }
+                    else {
+                        // add to the other maps
+                        IPPR.map.layers[key].push(layer);
+                        //mineralData.features[feature.properties.cartodb_id].push(feature);
+                    }
+                    
+                    
+                    /*
+                    ** ... add labels to the polygons
+                    */
+                    var marker = L.marker(layer.getBounds().getCenter(), {
+                        icon: L.divIcon({
+                            className: 'Map-label',
+                            html: '<span>' + layer.license_number + '</span>'
+                        })
+                    }).addTo(IPPR.map.map[key]);
+
+                    /*
+                    ** ... push the labels for later use
+                    */
+                    IPPR.map.markers[key].push(marker);
+
+                    /*
+                    ** ... each layer AND marker/label has a click function
+                    */
+                    function onClick(){
+
+                        /*
+                        ** ... if the current view is filtered (has active search or filtering) restyle the layers
+                        */
+                        if (IPPR.states.filters){
+                            IPPR.map.searchLayers(IPPR.states.view);
+                        }
+
+                        /*
+                        ** ... If this label or marker is not active remove all active filters and reset search
+                        */
+                        if (!this.isActive){ // jshint ignore:line
+                            IPPR.dom.filters.searchRemove.click();
+                        }
+
+                        /*
+                        ** ... click the item in the main list, scroll list to the top
+                        */
+                        var elem, top;
+                        if (that.is('.licenses') || that.is('.oil')){
+                            elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.license_number +'"]');
+                            elem.click();
+                            top = elem.position().top;
+                            $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
+                        } else if (that.is('.companies')){
+                            elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.company_id +'"]');
+                            elem.click();
+                            top = elem.position().top;
+                            $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
+                        }
+
+
+                    }
+
+                    /*
+                    ** ... assign the click events on layers and markers/labels
+                    */
+                    marker.on('click',onClick);
+                    layer.on('click',onClick);
+                }
+ 
+                /*
+                ** ... parse the geojson data and add it to the map
+                */
+                
+                if(key === 4) { 
                 L.geoJson([data], {
                     //style: IPPR.map.styles.default,
                     style: IPPR.map.resetLayers(),
                     onEachFeature: onEachLayer
                 })
                 .addTo(IPPR.map.map[key]);
-
+                }
             });
-
+            
+            
         });
 
     };
