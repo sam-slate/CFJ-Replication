@@ -388,14 +388,8 @@
             */
             $.each(IPPR.dom.map, function(key,val){
                 
-                // console.log(key);
-                
                 var that = $(val);
 
-               
-                    
-                
-                
                 IPPR.map.layers[key] = [];
                 IPPR.map.markers[key] = [];
 
@@ -451,18 +445,9 @@
                     /*
                     ** ... push the layers for later use
                     */
-                    // if the map is the oil map...
-                    if(key === 4 && feature.properties.license_type_id === 5) {
-                       // add only to oil map
-                       //oilData.features[feature.properties.cartodb_id].push(feature);
-                       console.log('OIL');
-                       IPPR.map.layers[4].push(layer);
-                    }
-                    else {
-                        // add to the other maps
-                        IPPR.map.layers[key].push(layer);
-                        //mineralData.features[feature.properties.cartodb_id].push(feature);
-                    }
+                    console.log(key);
+                    IPPR.map.layers[key].push(layer);
+                    
                     
                     
                     /*
@@ -553,18 +538,16 @@
             */
             $.each(IPPR.dom.map, function(key,val){
                 
-                console.log(key);
-                
                 var that = $(val);
 
-                IPPR.map.layers[key] = [];
-                IPPR.map.markers[key] = [];
+                IPPR.map.layers[4] = [];
+                IPPR.map.markers[4] = [];
 
                 /*
                 ** ... init map
                 */
                 if(key === 4) {
-                    IPPR.map.map[key] = L.map($('.Map').eq(key)[0],{
+                    IPPR.map.map[key] = L.map($('.Map').eq(4)[0],{
                         scrollWheelZoom: false,
                         zoomControl: false
                     }).setView([-13.198, 30.797], 7);
@@ -574,14 +557,14 @@
                     */
                     L.control.zoom({
                          position:'bottomright'
-                    }).addTo(IPPR.map.map[key]);
+                    }).addTo(IPPR.map.map[4]);
     
                     /*
                     ** ... base layer with the map of the world
                     */
                     L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
                         maxZoom: 18
-                    }).addTo(IPPR.map.map[key]);
+                    }).addTo(IPPR.map.map[4]);
                 }
                 /*
                 ** ... function to be executed on each layer
@@ -612,19 +595,8 @@
                     /*
                     ** ... push the layers for later use
                     */
-                    // if the map is the oil map...
-                    if(key === 4 && feature.properties.license_type_id === 5) {
-                       // add only to oil map
-                       //oilData.features[feature.properties.cartodb_id].push(feature);
-                       console.log('OIL');
-                       IPPR.map.layers[4].push(layer);
-                    }
-                    else {
-                        // add to the other maps
-                        IPPR.map.layers[key].push(layer);
-                        //mineralData.features[feature.properties.cartodb_id].push(feature);
-                    }
-                    
+                    IPPR.map.layers[4].push(layer);
+                                      
                     
                     /*
                     ** ... add labels to the polygons
@@ -634,12 +606,12 @@
                             className: 'Map-label',
                             html: '<span>' + layer.license_number + '</span>'
                         })
-                    }).addTo(IPPR.map.map[key]);
+                    }).addTo(IPPR.map.map[4]);
 
                     /*
                     ** ... push the labels for later use
                     */
-                    IPPR.map.markers[key].push(marker);
+                    IPPR.map.markers[4].push(marker);
 
                     /*
                     ** ... each layer AND marker/label has a click function
@@ -691,12 +663,12 @@
                 */
                 
                 if(key === 4) { 
-                L.geoJson([data], {
-                    //style: IPPR.map.styles.default,
-                    style: IPPR.map.resetLayers(),
-                    onEachFeature: onEachLayer
-                })
-                .addTo(IPPR.map.map[key]);
+                    L.geoJson([data], {
+                        //style: IPPR.map.styles.default,
+                        style: IPPR.map.resetLayers(),
+                        onEachFeature: onEachLayer
+                    })
+                    .addTo(IPPR.map.map[4]);
                 }
             });
             
@@ -910,10 +882,6 @@
             IPPR.dom.filters.searchRemove.click();
             IPPR.filters.clear();
 
-            
-            
-            
-
             /*
             ** ... we need to reset the leaflet state so it repositions the map view
             */
@@ -1082,7 +1050,8 @@
                     IPPR.states.highlight = 'oil';
                 }
 
-
+                console.log(key);
+                console.log(IPPR.map.layers);
                 if(IPPR.states.desktop){
                     
                     if (key === '1'){
