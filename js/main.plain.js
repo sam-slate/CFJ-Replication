@@ -367,7 +367,7 @@
         /*
         ** ... get the geo json data
         */
-        $.getJSON('/data/mw-not-oil-licenses.geojson', function (data) {
+        $.getJSON('https://migodiyathu.carto.com/api/v2/sql/?format=GeoJSON&q=SELECT * FROM mw_licenses where license_type_id != 5', function (data) {
 
             /*
             ** ... for each map in the dom initialize the maps and populate with layers and markers
@@ -508,7 +508,7 @@
         /*
         ** ... get the geo json data
         */
-        $.getJSON('/data/mw-oil-licenses.geojson', function (data) {
+        $.getJSON('https://migodiyathu.carto.com/api/v2/sql/?format=GeoJSON&q=SELECT * FROM mw_licenses where license_type_id = 5', function (data) {
 
             /*
             ** ... for each map in the dom initialize the maps and populate with layers and markers
