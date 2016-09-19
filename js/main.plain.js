@@ -183,10 +183,13 @@
                                 }
                             }, 200);
                         } else {
-                            IPPR.map.map[key].fitBounds(IPPR.map.layers[key][k].boundsCalculated, {
-                                paddingTopLeft: [600, 0],
-                                maxZoom: 11
-                            });
+
+                            if (key < 4) {
+                                IPPR.map.map[key].fitBounds(IPPR.map.layers[key][k].boundsCalculated, {
+                                    paddingTopLeft: [600, 0],
+                                    maxZoom: 11
+                                });
+                            }
                         }
                     }
                 });
@@ -429,7 +432,6 @@
                     /*
                     ** ... push the layers for later use
                     */
-                    console.log(key);
                     IPPR.map.layers[key].push(layer);
 
                     /*
@@ -994,8 +996,6 @@
                     IPPR.states.highlight = 'oil';
                 }
 
-                console.log(key);
-                console.log(IPPR.map.layers);
                 if (IPPR.states.desktop) {
 
                     if (key === '1') {
