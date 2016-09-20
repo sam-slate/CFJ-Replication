@@ -178,9 +178,17 @@
             <div class="row center-align Footer-logos">
                 <div class="col s12 m10 offset-m1">
                     <p class="Footer-poweredBy">a <a href="http://diig.io">diig.io</a> project by</p>
-                    <a href="http://www.ippr.org.na/">
-                        <img src="/images/dist/CFJ.png" alt="IPPR" width="1841" height="156" class="Footer--ippr" />
-                        <img src="/images/dist/CFJ.png" alt="IPPR" width="707" height="273" class="Footer--ipprSmall" />
+                    <a href="http://cfjmalawi.org/">
+                        <img src="/images/dist/CFJ.png" alt="Citizens for Justice" width="1841" height="156" class="Footer--ippr" />
+                        <img src="/images/dist/CFJ.png" alt="Citizens for Justice" width="707" height="273" class="Footer--ipprSmall" />
+                    </a>
+                    <a href="http://www.nrjnmalawi.mw/">
+                        <img src="/images/dist/nrjn.png" alt="IPPR" width="1841" height="156" class="Footer--ippr" />
+                        <img src="/images/dist/nrjn.png" alt="IPPR" width="707" height="273" class="Footer--ipprSmall" />
+                    </a>
+                    <a href="http://www.publishwhatyoupay.org/members/malawi/">
+                        <img src="/images/dist/pwyp--footer.png" alt="PWYP Malawi - Publish What You Pay Malawi" width="400" height="166" class="Footer--ippr" />
+                        <img src="/images/dist/pwyp--footer.png" alt="PWYP Malawi - Publish What You Pay Malawi" width="707" height="273" class="Footer--ipprSmall" />
                     </a>
                 </div>
                 <div class="col s12 m10 offset-m1">

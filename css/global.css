@@ -11666,6 +11666,7 @@ table th, table td {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   display: inline-block;
+  padding: 0px 20px;
 }
 
 .Footer-logos a:hover {
