@@ -567,7 +567,7 @@
                     /*
                     ** ... base layer with the map of the world
                     */
-                    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
+                    L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
                         maxZoom: 18
                     }).addTo(IPPR.map.map[4]);
                 }
@@ -576,8 +576,7 @@
                 */
                 
                 // data for the mineral maps and oil maps in two different arrays to populate maps selectively
-                
-                
+                               
                 
                 function onEachLayer(feature, layer) {
 
