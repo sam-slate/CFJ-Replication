@@ -256,11 +256,11 @@
 
                             <ul>
                                 <li>
-                                    <p><strong>Address:</strong> {{company_address}}{{^company_address}}<i>unknown</i>{{/company_address}}</p>
-                                    <p><strong>Jurisdiction:</strong> {{company_jurisdiction}}{{^company_jurisdiction}}<i>unknown</i>{{/company_jurisdiction}}</p>
-                                    <p><strong>Headquarters:</strong> {{company_hq}}{{^company_hq}}<i>unknown</i>{{/company_hq}}</p>
-                                    <p><strong>Formed on:</strong> {{company_formed}}{{^company_formed}}<i>unknown</i>{{/company_formed}}</p>
-                                    <p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}{{^company_website}}<i>unknown</i>{{/company_website}}</a></p>
+                                    <p><strong>Address:</strong> {{company_address}}{{^company_address}}{{/company_address}}</p>
+                                    <p><strong>Jurisdiction:</strong> {{company_jurisdiction}}{{^company_jurisdiction}}{{/company_jurisdiction}}</p>
+                                    <p><strong>Headquarters:</strong> {{company_hq}}{{^company_hq}}{{/company_hq}}</p>
+                                    <p><strong>Formed on:</strong> {{company_formed}}{{^company_formed}}{{/company_formed}}</p>
+                                    <p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}{{^company_website}}{{/company_website}}</a></p>
                                 </li>
                             </ul>
                             <p class="List-switch" data-to="companies" data-id="{{ company_id }}"><i class="material-icons">info</i></p>
@@ -380,11 +380,11 @@
 
                             <ul>
                                 <li>
-                                    <p><strong>Address:</strong> {{company_address}}{{^company_address}}<i>unknown</i>{{/company_address}}</p>
-                                    <p><strong>Jurisdiction:</strong> {{company_jurisdiction}}{{^company_jurisdiction}}<i>unknown</i>{{/company_jurisdiction}}</p>
-                                    <p><strong>Headquarters:</strong> {{company_hq}}{{^company_hq}}<i>unknown</i>{{/company_hq}}</p>
-                                    <p><strong>Formed on:</strong> {{company_formed}}{{^company_formed}}<i>unknown</i>{{/company_formed}}</p>
-                                    <p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}{{^company_website}}<i>unknown</i>{{/company_website}}</a></p>
+                                    <p><strong>Address:</strong> {{company_address}}{{^company_address}}{{/company_address}}</p>
+                                    <p><strong>Jurisdiction:</strong> {{company_jurisdiction}}{{^company_jurisdiction}}{{/company_jurisdiction}}</p>
+                                    <p><strong>Headquarters:</strong> {{company_hq}}{{^company_hq}}{{/company_hq}}</p>
+                                    <p><strong>Formed on:</strong> {{company_formed}}{{^company_formed}}{{/company_formed}}</p>
+                                    <p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}{{^company_website}}{{/company_website}}</a></p>
                                 </li>
                             </ul>
                             <!-- <p class="List-switch" data-to="companies" data-id="{{ company_id }}"><i class="material-icons">info</i></p> -->
@@ -446,15 +446,15 @@
                 <tbody>
                     {{#tableRows}}
                         <tr>
-                            <td>{{license_number}}{{^license_number}}<i>unknown</i>{{/license_number}}</td>
-                            <td>{{transfer_date}}{{^transfer_date}}<i>unknown</i>{{/transfer_date}}</td>
-                            <td>{{transfer_type}}{{^transfer_type}}<i>unknown</i>{{/transfer_type}}</td>
-                            <td>{{seller}}{{^seller}}<i>unknown</i>{{/seller}}</td>
-                            <td>{{seller_stake_prior}}{{^seller_stake_prior}}<i>unknown</i>{{/seller_stake_prior}}</td>
-                            <td>{{buyer}}{{^buyer}}<i>unknown</i>{{/buyer}}</td>
-                            <td>{{buyer_stake_after}}{{^buyer_stake_after}}<i>unknown</i>{{/buyer_stake_after}}</td>
-                            <td>{{operator_prior}}{{^operator_prior}}<i>unknown</i>{{/operator_prior}}</td>
-                            <td>{{operator_after}}{{^operator_after}}<i>unknown</i>{{/operator_after}}</td>
+                            <td>{{license_number}}{{^license_number}}{{/license_number}}</td>
+                            <td>{{transfer_date}}{{^transfer_date}}{{/transfer_date}}</td>
+                            <td>{{transfer_type}}{{^transfer_type}}{{/transfer_type}}</td>
+                            <td>{{seller}}{{^seller}}{{/seller}}</td>
+                            <td>{{seller_stake_prior}}{{^seller_stake_prior}}{{/seller_stake_prior}}</td>
+                            <td>{{buyer}}{{^buyer}}{{/buyer}}</td>
+                            <td>{{buyer_stake_after}}{{^buyer_stake_after}}{{/buyer_stake_after}}</td>
+                            <td>{{operator_prior}}{{^operator_prior}}{{/operator_prior}}</td>
+                            <td>{{operator_after}}{{^operator_after}}{{/operator_after}}</td>
                         </tr>
                     {{/tableRows}}
                 </tbody>
@@ -480,12 +480,12 @@
                 <tbody>
                     {{#tableRows}}
                         <tr>
-                            <td>{{company_name}}{{^company_name}}<i>unknown</i>{{/company_name}}</td>
-                            <td>{{company_jurisdiction}}{{^company_jurisdiction}}<i>unknown</i>{{/company_jurisdiction}}</td>
-                            <td>{{company_registration}}{{^company_registration}}<i>unknown</i>{{/company_registration}}</td>
-                            <td>{{company_hq}}{{^company_hq}}<i>unknown</i>{{/company_hq}}</td>
-                            <td>{{company_formed}}{{^company_formed}}<i>unknown</i>{{/company_formed}}</td>
-                            <td>{{company_address}}{{^company_address}}<i>unknown</i>{{/company_address}}</td>
+                            <td>{{company_name}}{{^company_name}}{{/company_name}}</td>
+                            <td>{{company_jurisdiction}}{{^company_jurisdiction}}{{/company_jurisdiction}}</td>
+                            <td>{{company_registration}}{{^company_registration}}{{/company_registration}}</td>
+                            <td>{{company_hq}}{{^company_hq}}{{/company_hq}}</td>
+                            <td>{{company_formed}}{{^company_formed}}{{/company_formed}}</td>
+                            <td>{{company_address}}{{^company_address}}{{/company_address}}</td>
                         </tr>
                     {{/tableRows}}
                 </tbody>
@@ -512,11 +512,11 @@
         {{#hierarchy}}
             <div class="col s6 m4 l3 Hierarchy-data">
                 <div class="Block">
-                    <p class="Block-title">{{name}}{{^name}}<i>unknown</i>{{/name}}</p>
-                    <p>Nationality: {{nationality}}{{^nationality}}<i>unknown</i>{{/nationality}}</p>
-                    <p>Start date: {{start_date}}{{^start_date}}<i>unknown</i>{{/start_date}}</p>
-                    <p>Role: {{role}}{{^role}}<i>unknown</i>{{/role}}</p>
-                    <p class="Block-title">{{#percent_interest}}{{percent_interest}}%{{/percent_interest}}{{^percent_interest}}<i>unknown</i>{{/percent_interest}}</p>
+                    <p class="Block-title">{{name}}{{^name}}{{/name}}</p>
+                    <p>Nationality: {{nationality}}{{^nationality}}{{/nationality}}</p>
+                    <p>Start date: {{start_date}}{{^start_date}}{{/start_date}}</p>
+                    <p>Role: {{role}}{{^role}}{{/role}}</p>
+                    <p class="Block-title">{{#percent_interest}}{{percent_interest}}%{{/percent_interest}}{{^percent_interest}}{{/percent_interest}}</p>
                 </div>
             </div>
         {{/hierarchy}}
