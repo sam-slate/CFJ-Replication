@@ -137,7 +137,7 @@
                     <i class="material-icons small prefix Search-trigger">search</i>
                     <i class="material-icons small prefix Search-remove">close</i>
                     <input id="search-tab-1" type="text" class="Search-input" />
-                    <label for="search-tab-1">Filter by licence number or mineral name</label>
+                    <label for="search-tab-1">Filter by licence number</label>
                 </div>
 
                 <div class="Filters">
