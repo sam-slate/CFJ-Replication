@@ -10982,7 +10982,6 @@ html.js .js-isHidden {
 @media only screen and (min-width: 993px) {
   .Filters {
     width: 70%;
-    overflow: auto;
   }
 }
 
@@ -11038,6 +11037,18 @@ html.js .js-isHidden {
   color: #000;
 }
 
+.Filters-select {
+  margin-top: 20px;
+}
+
+@media only screen and (min-width: 993px) {
+  .Filters-select {
+    max-width: 300px;
+    margin-left: 20px;
+    margin-top: 0;
+  }
+}
+
 .chip {
   cursor: pointer;
   opacity: 0.5;
@@ -11067,6 +11078,11 @@ html.js .js-isHidden {
 .chip.has-data {
   opacity: 1;
   pointer-events: all;
+}
+
+.select-wrapper span.caret {
+  right: 10px;
+  z-index: 2;
 }
 
 /* ====================================

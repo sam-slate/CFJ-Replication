@@ -103,7 +103,6 @@
 
     @media #{$large-and-up} {
         width: 70%;
-        overflow: auto;
     }
 
     &.Filters--mobile {
@@ -154,6 +153,15 @@
         }
     }
 
+    &-select {
+        margin-top: 20px;
+
+        @media #{$large-and-up} {
+            max-width: 300px;
+            margin-left: 20px;
+            margin-top: 0;
+        }
+    }
 }
 
 .chip {
@@ -186,4 +194,9 @@
         pointer-events: all;
     }
 
+}
+
+.select-wrapper span.caret {
+    right: 10px;
+    z-index: 2;
 }

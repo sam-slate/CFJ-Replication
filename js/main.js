@@ -36,6 +36,7 @@
                 main: '.Filters',
                 mobile: '.Filters--mobile',
                 item: '.Filters .chip',
+                select: '.Filters-select',
                 trigger: $('.Filters-trigger'),
                 activeHolder: $('.Filters-active'),
                 remove: $('Filters-remove'),
@@ -61,7 +62,8 @@
                 licenceTable: '.licenceTable-tpl',
                 companyTable: '.companyTable-tpl',
                 ownedLicenses: '.ownedLicenses-tpl',
-                hierarchy: '.hierarchy-tpl'
+                hierarchy: '.hierarchy-tpl',
+                shareholders: '.shareholders-tpl'
             },
             additionalInfoStrings: {
                 licence: 'Info for Licence number <span></span>',
@@ -69,7 +71,8 @@
             },
             ownedLicenses: '.OwnedLicenses',
             hierarchy: '.Hierarchy',
-            table: '.Table'
+            table: '.Table',
+            shareholders: '.Shareholders'
         },
         states: {
             loading: 'is-loading',
@@ -96,7 +99,7 @@
                 },
                 1: {
                     name: 'licenses',
-                    sql: "SELECT l.cartodb_id as l_cartodb_id, l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.cartodb_id as company_id, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_companies c WHERE l.company_id = c.cartodb_id AND l.license_type_id != 5",
+                    sql: "SELECT l.cartodb_id as l_cartodb_id, l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.cartodb_id as company_id, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website, m.mineral_id AS mineral_id, t.name AS mineral_name  FROM mw_licenses l, mw_companies c, mw_license_minerals m, mw_minerals t WHERE l.company_id = c.cartodb_id AND l.license_type_id != 5 AND m.license_id = l.cartodb_id AND m.mineral_id = t.cartodb_id",
                     groupBy: 'license_number'
                 },
                 2: {
@@ -255,7 +258,7 @@
         filters: {
             list: [],
             options: {
-                valueNames: ['List-title', 'concessionNumbers', 'expiration'],
+                valueNames: ['List-title', 'concessionNumbers', 'mineralName'],
                 listClass: 'collection',
                 searchClass: 'Search-input'
             },
@@ -298,7 +301,7 @@
 
         var markup = [],
             mustacheTpl = [],
-            title,id,expiration = false;
+            title,id = false;
 
         /*
         ** For each tab ...
@@ -316,6 +319,8 @@
                 ** ... sort data - broup by, store it the main IPPR object
                 */
                 IPPR.data.data[key] = IPPR.helpers.groupBy(data.rows, tab.groupBy);
+
+                
 
                 /*
                 ** .. run through the data, parse the templates
@@ -340,14 +345,26 @@
                         id = value[0].license_number;
                     }
 
+
+                    var minerals = '',
+                        comma = '';
+                    $.each(value, function(k,v){
+                        if (k + 1 < value.length){
+                            comma = ',';
+                        } else {
+                            comma = '';
+                        }
+                        minerals += v.mineral_name + comma;
+                    });
                     /*
                     ** ... render templates with the data
                     */
+                    
                     markup[key] += Mustache.render(
                         mustacheTpl[key], {
                             title: title,
                             id: id,
-                            expiration: expiration
+                            minerals: minerals ? minerals.split(',') : false
                         }
                     );
                 });
@@ -705,9 +722,9 @@
     */
     IPPR.displayAdditionalInfo = function(item,type){
         
-        var tableData,mustacheTpl,finalTable,hierarchyTpl;
+        var tableData,mustacheTpl,finalTable,hierarchyTpl,shareholdersTpl,finalShareholders;
         /*
-        ** ... if this is licence
+        ** ... if this is company
         */
         if (type === 'company'){
             
@@ -729,16 +746,45 @@
             mustacheTpl = $(IPPR.dom.templates.companyTable).html();
             // ownedLicensesTpl = $('.ownedLicenses-tpl').html();
             hierarchyTpl = $(IPPR.dom.templates.hierarchy).html();
+            shareholdersTpl = $(IPPR.dom.templates.shareholders).html();
 
             Mustache.parse(mustacheTpl);
             // Mustache.parse(ownedLicensesTpl);
             Mustache.parse(hierarchyTpl);
+            Mustache.parse(shareholdersTpl);
 
             finalTable = Mustache.render(
                 mustacheTpl, {
                     tableRows: tableData,
                 }
             );
+
+
+        //    $.getJSON("https://migodiyathu.carto.com/api/v2/sql/?q=SELECT c1.cartodb_id as child_id, c1.name as childcompanyname, c2.cartodb_id as parent_id, c2.name as parentcompanyname from mw_company_hierarchies h JOIN mw_companies c1 on h.child_company_id = c1.cartodb_id JOIN mw_companies c2 ON h.parent_company_id = c2.cartodb_id WHERE h.parent_company_id = '" + item.data('id') + "'", function(data) {
+
+        //         finalShareholders = Mustache.render(
+        //             shareholdersTpl, {
+        //                 tableRows: data.rows
+        //             }
+        //         );
+
+        //         if (data.rows.length){
+        //             if (IPPR.states.mobile){
+        //                 $(IPPR.dom.lists.extra).find(IPPR.dom.shareholders).html(finalShareholders).removeClass(IPPR.states.hidden);
+        //             } else {
+        //                 IPPR.dom.additionalInfo.find(IPPR.dom.shareholders).html(finalShareholders).removeClass(IPPR.states.hidden);                    
+        //             }
+        //         } else {
+        //             if (IPPR.states.mobile){
+        //                 $(IPPR.dom.lists.extra).find(IPPR.dom.shareholders).addClass(IPPR.states.hidden);
+        //             } else {
+        //                 IPPR.dom.additionalInfo.find(IPPR.dom.shareholders).addClass(IPPR.states.hidden);
+        //             }
+        //         }
+                
+        //     });
+
+
 
             if (IPPR.states.mobile){
                 $(IPPR.dom.lists.extra).find(IPPR.dom.table).html(finalTable);
@@ -885,6 +931,8 @@
             IPPR.dom.filters.searchRemove.removeClass(IPPR.states.visible);
             IPPR.dom.filters.searchRemove.click();
             IPPR.filters.clear();
+            $(IPPR.dom.filters.select).val('');
+            $('select').material_select();
 
             /*
             ** ... we need to reset the leaflet state so it repositions the map view
@@ -982,7 +1030,8 @@
                         }
                     }
 
-                    var companies = [];
+                    var companies = [],
+                        tmpCompanyId;
 
                     $.each(IPPR.data.data[key][id], function(k, company){
 
@@ -990,17 +1039,21 @@
                             companies.push(company);
                         } else {
 
-                            Mustache.parse(mustacheTpl[key]);
+                            if (tmpCompanyId !== company.company_id){
+                                Mustache.parse(mustacheTpl[key]);
 
-                            markup[key] += Mustache.render(
-                                mustacheTpl[key], {
-                                    active: key <= 2 ? true : false,
-                                    companyInfo: company,
-                                    company_id: company.company_id
-                                }
-                            );
+                                markup[key] += Mustache.render(
+                                    mustacheTpl[key], {
+                                        active: key <= 2 ? true : false,
+                                        companyInfo: company,
+                                        company_id: company.company_id
+                                    }
+                                );
+                            }
 
                         }
+
+                        tmpCompanyId = company.company_id;
 
                         size++;
 
@@ -1080,7 +1133,20 @@
     };
 
 
+
     IPPR.filtering = function(){
+
+        $.getJSON("https://migodiyathu.carto.com/api/v2/sql/?q=SELECT * FROM mw_minerals", function(data) {
+            $.each($(IPPR.dom.filters.select), function(kk,vv){
+                $.each(data.rows, function(k,v){
+                    $(vv).append(`<option value="${v.name}">${v.name}</option>`);
+                });
+            });
+
+            setTimeout(function(){
+                $('select').material_select();
+            }, 100);
+        });   
 
         $.each(IPPR.data.tabs, function(key){
             IPPR.filters.list.push(new List('tab-'+key, IPPR.filters.options));// jshint ignore:line
@@ -1111,6 +1177,33 @@
 
                     IPPR.filters.list[key].filter(function (item) {
                         if (item.values()[value]){
+                            return true;
+                        }
+                        return false;
+                    });
+
+                    IPPR.map.searchLayers(IPPR.states.view);
+                }
+            });     
+
+
+            $('#tab-'+key).find(IPPR.dom.filters.select).on('change', function() {
+
+                var value = $(this).val();
+                var type = 'mineralName';                
+
+                if (!value){
+                    IPPR.states.filters = false;
+                    IPPR.filters.list[key].filter();                    
+                    IPPR.filters.clear();
+                    IPPR.map.resetLayers();                    
+                } else {
+
+                    IPPR.states.filters = true;
+
+                    IPPR.filters.list[key].filter(function (item) {
+                        
+                        if (item.values()[type].indexOf(value) > 0){
                             return true;
                         }
                         return false;
@@ -1283,7 +1376,6 @@
         }
 
     }
-
 
 
     $('.js-dropdown-trigger').dropdown({

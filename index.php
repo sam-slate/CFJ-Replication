@@ -131,7 +131,7 @@
                     </li>
                     <li class="tab col">
                         <a href="/#tab-1" class="brand" data-view="licenses">
-                            <span>Browse by mineral licence</span>
+                            <span>Browse by mineral type</span>
                             <i class="material-icons">keyboard_arrow_right</i>
                         </a>
                     </li>

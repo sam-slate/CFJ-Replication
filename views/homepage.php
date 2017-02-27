@@ -85,6 +85,7 @@
                             <div class="Table row hide-on-large-only"></div>
                             <div class="OwnedLicenses row hide-on-large-only"></div>
                             <div class="Hierarchy row hide-on-large-only"></div>
+                            <div class="Shareholders row hide-on-large-only"></div>
                             <a class="waves-effect waves-light btn orange hide-on-large-only Download-button"><i class="material-icons right">file_download</i>Download data</a>
                         </div>
                     </div>
@@ -136,11 +137,11 @@
                     <i class="material-icons small prefix Search-trigger">search</i>
                     <i class="material-icons small prefix Search-remove">close</i>
                     <input id="search-tab-1" type="text" class="Search-input" />
-                    <label for="search-tab-1">Filter by licence</label>
+                    <label for="search-tab-1">Filter by licence number or mineral name</label>
                 </div>
 
-                <!--div class="Filters">
-                    <ul class="Filters-list">
+                <div class="Filters">
+                    <!--<ul class="Filters-list">
                         <li class="Filters-item">
                             <span class="chip Filters-itemFilter has-data" data-filter="expiration">Soon to expire</span>
                         </li>
@@ -150,8 +151,11 @@
                         <li class="Filters-item">
                             <span class="chip Filters-itemFilter">Recently changed ownership</span>
                         </li>
-                    </ul>
-                </div-->
+                    </ul>-->
+                    <select class="Filters-select">
+                        <option value="">Filter by mineral name</option>
+                    </select>
+                </div>
 
             </div>
 
@@ -176,6 +180,10 @@
                                 <input id="search-tab-1" type="text" class="Search-input" />
                                 <label for="search-tab-1">Filter by licence</label>
                             </div>
+
+                            <select class="Filters-select">
+                                <option value="">Filter by mineral type</option>
+                            </select>
 
                         </div>
 
@@ -236,12 +244,19 @@
                     {{#concessionNumbers}}
                         <span class="List-number brand green">{{.}}</span>
                     {{/concessionNumbers}}
+                    {{#minerals}}
+                        <span class="List-number brand green">{{.}}</span>
+                    {{/minerals}}
                     <span class="u-isHidden concessionNumbers">
                         {{#concessionNumbers}}
                             {{.}}
                         {{/concessionNumbers}}
                     </span>
-                    {{#expiration}}<span class="expiration u-isHidden">1</span>{{/expiration}}
+                    <span class="mineralName u-isHidden">
+                        {{#minerals}}
+                            {{.}}
+                        {{/minerals}}
+                    </span>
                 </li>
             </script>
 
@@ -418,6 +433,10 @@
                 <div class="col s12">
                     <div class="Hierarchy row"></div>
                 </div>
+
+                <div class="col s12">
+                    <div class="Shareholders row"></div>
+                </div>
             </div>
 
         </div>
@@ -521,4 +540,45 @@
             </div>
         {{/hierarchy}}
 
+    </script>
+
+    <script type="x-tmpl-mustache" class="shareholders-tpl">
+        <div class="col s12">
+            <p class="Table-title">Company shareholders &amp; stakeholders</p>
+            <table class="bordered striped highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>Address</th>
+                        <th>Amount milions</th>
+                        <th>Currency</th>
+                        <th>Date formed</th>
+                        <th>Headquarters</th>
+                        <th>Jurisdiction</th>
+                        <th>Item</th>
+                        <th>Name</th>
+                        <th>Source</th>
+                        <th>Website</th>
+                        <th>Year</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{#tableRows}}
+                        <tr>
+                            <td>{{address}}{{^address}}<i>unknown</i>{{/address}}</td>
+                            <td>{{amount_millions}}{{^amount_millions}}<i>unknown</i>{{/amount_millions}}</td>
+                            <td>{{currency}}{{^currency}}<i>unknown</i>{{/currency}}</td>
+                            <td>{{date_formed}}{{^date_formed}}<i>unknown</i>{{/date_formed}}</td>
+                            <td>{{hq}}{{^hq}}<i>unknown</i>{{/hq}}</td>
+                            <td>{{jurisdiction}}{{^jurisdiction}}<i>unknown</i>{{/jurisdiction}}</td>
+                            <td>{{item}}{{^item}}<i>unknown</i>{{/item}}</td>
+                            <td>{{name}}{{^name}}<i>unknown</i>{{/name}}</td>
+                            <td>{{source}}{{^source}}<i>unknown</i>{{/source}}</td>
+                            <td style="word-wrap: break-word;">{{website}}{{^website}}<i>unknown</i>{{/website}}</td>
+                            <td>{{year}}{{^year}}<i>unknown</i>{{/year}}</td>
+                        </tr>
+                    {{/tableRows}}
+                </tbody>
+            </table>
+        </div>
     </script>
