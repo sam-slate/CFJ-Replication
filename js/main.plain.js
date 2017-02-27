@@ -983,6 +983,7 @@
 
                         if (IPPR.states.view === 'companies') {
                             companies.push(company);
+                            size++;
                         } else {
 
                             if (tmpCompanyId !== company.company_id) {
@@ -993,12 +994,11 @@
                                     companyInfo: company,
                                     company_id: company.company_id
                                 });
+                                size++;
                             }
                         }
 
                         tmpCompanyId = company.company_id;
-
-                        size++;
                     });
 
                     if (IPPR.states.view === 'companies') {
