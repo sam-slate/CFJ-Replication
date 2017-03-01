@@ -86,6 +86,7 @@
                             <div class="OwnedLicenses row hide-on-large-only"></div>
                             <div class="Hierarchy row hide-on-large-only"></div>
                             <div class="Shareholders row hide-on-large-only"></div>
+                            <div class="Documents row hide-on-large-only"></div>
                             <a class="waves-effect waves-light btn orange hide-on-large-only Download-button"><i class="material-icons right">file_download</i>Download data</a>
                         </div>
                     </div>
@@ -437,6 +438,10 @@
                 <div class="col s12">
                     <div class="Shareholders row"></div>
                 </div>
+
+                <div class="col s12">
+                    <div class="Documents row"></div>
+                </div>
             </div>
 
         </div>
@@ -548,37 +553,32 @@
             <table class="bordered striped highlight responsive-table">
                 <thead>
                     <tr>
-                        <th>Address</th>
-                        <th>Amount milions</th>
-                        <th>Currency</th>
-                        <th>Date formed</th>
-                        <th>Headquarters</th>
-                        <th>Jurisdiction</th>
-                        <th>Item</th>
-                        <th>Name</th>
-                        <th>Source</th>
-                        <th>Website</th>
-                        <th>Year</th>
+                        <th>Child company</th>
+                        <th>Parent company</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {{#tableRows}}
                         <tr>
-                            <td>{{address}}{{^address}}<i>unknown</i>{{/address}}</td>
-                            <td>{{amount_millions}}{{^amount_millions}}<i>unknown</i>{{/amount_millions}}</td>
-                            <td>{{currency}}{{^currency}}<i>unknown</i>{{/currency}}</td>
-                            <td>{{date_formed}}{{^date_formed}}<i>unknown</i>{{/date_formed}}</td>
-                            <td>{{hq}}{{^hq}}<i>unknown</i>{{/hq}}</td>
-                            <td>{{jurisdiction}}{{^jurisdiction}}<i>unknown</i>{{/jurisdiction}}</td>
-                            <td>{{item}}{{^item}}<i>unknown</i>{{/item}}</td>
-                            <td>{{name}}{{^name}}<i>unknown</i>{{/name}}</td>
-                            <td>{{source}}{{^source}}<i>unknown</i>{{/source}}</td>
-                            <td style="word-wrap: break-word;">{{website}}{{^website}}<i>unknown</i>{{/website}}</td>
-                            <td>{{year}}{{^year}}<i>unknown</i>{{/year}}</td>
+                            <td>{{childcompanyname}}</td>
+                            <td>{{parentcompanyname}}</td>
                         </tr>
                     {{/tableRows}}
                 </tbody>
             </table>
+        </div>
+    </script>
+
+    <script type="x-tmpl-mustache" class="documents-tpl">
+        <div class="col s12">
+            <p class="Table-title">Documents</p>
+            <ul>
+                {{#documents}}
+                    <li>
+                        <a href="{{url}}"><i class="material-icons">play_for_work</i> {{name}}</a>
+                    </li>
+                {{/documents}}
+            </ul>
         </div>
     </script>

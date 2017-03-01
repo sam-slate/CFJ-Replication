@@ -63,7 +63,8 @@
                 companyTable: '.companyTable-tpl',
                 ownedLicenses: '.ownedLicenses-tpl',
                 hierarchy: '.hierarchy-tpl',
-                shareholders: '.shareholders-tpl'
+                shareholders: '.shareholders-tpl',
+                documents: '.documents-tpl'
             },
             additionalInfoStrings: {
                 licence: 'Info for Licence number <span></span>',
@@ -72,7 +73,8 @@
             ownedLicenses: '.OwnedLicenses',
             hierarchy: '.Hierarchy',
             table: '.Table',
-            shareholders: '.Shareholders'
+            shareholders: '.Shareholders',
+            documents: '.Documents'
         },
         states: {
             loading: 'is-loading',
@@ -722,7 +724,7 @@
     */
     IPPR.displayAdditionalInfo = function(item,type){
         
-        var tableData,mustacheTpl,finalTable,hierarchyTpl,shareholdersTpl,finalShareholders;
+        var tableData,mustacheTpl,finalTable,hierarchyTpl,shareholdersTpl,finalShareholders,documentsTpl,finalDocuments;
         /*
         ** ... if this is company
         */
@@ -747,11 +749,13 @@
             // ownedLicensesTpl = $('.ownedLicenses-tpl').html();
             hierarchyTpl = $(IPPR.dom.templates.hierarchy).html();
             shareholdersTpl = $(IPPR.dom.templates.shareholders).html();
+            documentsTpl = $(IPPR.dom.templates.documents).html();
 
             Mustache.parse(mustacheTpl);
             // Mustache.parse(ownedLicensesTpl);
             Mustache.parse(hierarchyTpl);
             Mustache.parse(shareholdersTpl);
+            Mustache.parse(documentsTpl);
 
             finalTable = Mustache.render(
                 mustacheTpl, {
@@ -760,29 +764,55 @@
             );
 
 
-        //    $.getJSON("https://migodiyathu.carto.com/api/v2/sql/?q=SELECT c1.cartodb_id as child_id, c1.name as childcompanyname, c2.cartodb_id as parent_id, c2.name as parentcompanyname from mw_company_hierarchies h JOIN mw_companies c1 on h.child_company_id = c1.cartodb_id JOIN mw_companies c2 ON h.parent_company_id = c2.cartodb_id WHERE h.parent_company_id = '" + item.data('id') + "'", function(data) {
+           $.getJSON("https://migodiyathu.carto.com/api/v2/sql/?q=Select c1.cartodb_id as child_id, c1.name as childcompanyname, c2.cartodb_id as parent_id, c2.name as parentcompanyname from mw_company_hierarchies h JOIN mw_companies c1 on h.child_company_id = c1.cartodb_id JOIN mw_companies c2 ON h.parent_company_id = c2.cartodb_id WHERE h.parent_company_id = '" + item.data('id') + "'", function(data) {
 
-        //         finalShareholders = Mustache.render(
-        //             shareholdersTpl, {
-        //                 tableRows: data.rows
-        //             }
-        //         );
+                finalShareholders = Mustache.render(
+                    shareholdersTpl, {
+                        tableRows: data.rows
+                    }
+                );
 
-        //         if (data.rows.length){
-        //             if (IPPR.states.mobile){
-        //                 $(IPPR.dom.lists.extra).find(IPPR.dom.shareholders).html(finalShareholders).removeClass(IPPR.states.hidden);
-        //             } else {
-        //                 IPPR.dom.additionalInfo.find(IPPR.dom.shareholders).html(finalShareholders).removeClass(IPPR.states.hidden);                    
-        //             }
-        //         } else {
-        //             if (IPPR.states.mobile){
-        //                 $(IPPR.dom.lists.extra).find(IPPR.dom.shareholders).addClass(IPPR.states.hidden);
-        //             } else {
-        //                 IPPR.dom.additionalInfo.find(IPPR.dom.shareholders).addClass(IPPR.states.hidden);
-        //             }
-        //         }
+                if (data.rows.length){
+                    if (IPPR.states.mobile){
+                        $(IPPR.dom.lists.extra).find(IPPR.dom.shareholders).html(finalShareholders).removeClass(IPPR.states.hidden);
+                    } else {
+                        IPPR.dom.additionalInfo.find(IPPR.dom.shareholders).html(finalShareholders).removeClass(IPPR.states.hidden);                    
+                    }
+                } else {
+                    if (IPPR.states.mobile){
+                        $(IPPR.dom.lists.extra).find(IPPR.dom.shareholders).addClass(IPPR.states.hidden);
+                    } else {
+                        IPPR.dom.additionalInfo.find(IPPR.dom.shareholders).addClass(IPPR.states.hidden);
+                    }
+                }
                 
-        //     });
+            });
+
+
+
+           $.getJSON("https://migodiyathu.carto.com/api/v2/sql/?q=SELECT * FROM mw_documents WHERE company_id ='" + item.data('id') + "'", function(data) {
+
+                finalDocuments = Mustache.render(
+                    documentsTpl, {
+                        documents: data.rows
+                    }
+                );
+
+                if (data.rows.length){
+                    if (IPPR.states.mobile){
+                        $(IPPR.dom.lists.extra).find(IPPR.dom.documents).html(finalDocuments).removeClass(IPPR.states.hidden);
+                    } else {
+                        IPPR.dom.additionalInfo.find(IPPR.dom.documents).html(finalDocuments).removeClass(IPPR.states.hidden);                    
+                    }
+                } else {
+                    if (IPPR.states.mobile){
+                        $(IPPR.dom.lists.extra).find(IPPR.dom.documents).addClass(IPPR.states.hidden);
+                    } else {
+                        IPPR.dom.additionalInfo.find(IPPR.dom.documents).addClass(IPPR.states.hidden);
+                    }
+                }
+                
+            });
 
 
 

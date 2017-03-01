@@ -10506,6 +10506,10 @@ img {
   height: auto;
 }
 
+.material-icons {
+  vertical-align: bottom;
+}
+
 /* ====================================
     Common
     ==================================== */
