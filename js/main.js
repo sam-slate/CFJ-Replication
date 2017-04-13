@@ -96,7 +96,8 @@
             tabs: {
                 0: {
                     name: 'companies',
-                    sql: "SELECT l.cartodb_id as l_cartodb_id, l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.cartodb_id as company_id, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_companies c WHERE l.company_id = c.cartodb_id  AND l.license_type_id != 5",
+                    sql: "SELECT l.cartodb_id as l_cartodb_id, l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.cartodb_id as company_id, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_companies c WHERE l.company_id = c.cartodb_id",
+                    //sql: "SELECT l.cartodb_id as l_cartodb_id, l.license_number AS license_number, l.area AS license_area_sqkm, l.date_granted AS license_date_granted, l.date_issued AS license_date_issued, l.date_expires AS license_date_expires, c.name AS company_name, c.address AS company_address, c.cartodb_id as company_id, c.hq AS company_hq, c.jurisdiction AS company_jurisdiction, c.registration AS company_registration, c.website AS company_website FROM mw_licenses l, mw_companies c WHERE l.company_id = c.cartodb_id  AND l.license_type_id != 5",
                     groupBy: 'company_id'
                 },
                 1: {
