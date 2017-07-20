@@ -7,7 +7,8 @@ env:
 addons:
   ssh_known_hosts: 199.58.81.155
 before_install:
-- openssl aes-256-cbc -K $encrypted_d11fefb1110f_key -iv $encrypted_d11fefb1110f_iv -in deploy-key-malawi.enc -out deploy-key-malawi -d
+- openssl aes-256-cbc -K $encrypted_d11fefb1110f_key -iv $encrypted_d11fefb1110f_iv 
+  -in deploy-key-malawi.enc -out deploy-key-malawi -d
 - chmod 600 ~/.ssh/config
 - chmod 600 deploy-key-malawi
 - mv deploy-key-malawi ~/.ssh/id_rsa
