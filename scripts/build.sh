@@ -6,7 +6,7 @@ function init {
 	mkdir _site
 	cd _site
 	git init
-	// server is asking for password
+	# server is asking for password
 	git remote add deploy "engineroom@199.58.81.155:/var/www/diig-malawi/"
 	git config user.name "Travis CI"
 	git config user.email "mayarichman@gmail.com"
