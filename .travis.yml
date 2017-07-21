@@ -18,7 +18,6 @@ before_install:
 - rm deploy-key-malawi.enc
 - echo -e "Host 199.58.81.155" >> ~/.ssh/config
 - echo -e "IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
-- bash scripts/install.sh
 before_script:
 - bash scripts/install.sh
 - npm install grunt-cli -g
