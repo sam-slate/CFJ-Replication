@@ -17,6 +17,7 @@ before_install:
 - chmod 600 deploy-key-malawi
 - mv deploy-key-malawi ~/.ssh/id_rsa
 - rm deploy-key-malawi.enc
+- ls /var/www/
 - echo -e "Host 199.58.81.155" >> ~/.ssh/config
 - echo -e "IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
 before_script:
