@@ -4,6 +4,9 @@ node_js:
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+cache:
+    directories:
+    - node_modules
 addons:
   ssh_known_hosts: 199.58.81.155
 before_install:
