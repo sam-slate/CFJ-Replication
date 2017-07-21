@@ -14,6 +14,7 @@ before_install:
 - mv deploy-key-malawi ~/.ssh/id_rsa
 - rm deploy-key-malawi.enc
 - echo -e "Host 199.58.81.155" >> ~/.ssh/config
+- echo -e "StrictHostKeyChecking no" >> ~/.ssh/config
 - echo -e "IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
 - bash scripts/install.sh
 before_script:
