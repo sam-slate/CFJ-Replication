@@ -1,23 +1,18 @@
 language: node_js
 cache:
-    directories:
-    - node_modules
+  directories:
+  - node_modules
 node_js:
 - 5.10.1
-env:
-  global:
-  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 addons:
   ssh_known_hosts: engineroom1.koumbit.net
 before_install:
-- openssl aes-256-cbc -K $encrypted_7ed872643f93_key -iv $encrypted_7ed872643f93_iv
+- openssl aes-256-cbc -K $encrypted_ba34b4b50c2f_key -iv $encrypted_ba34b4b50c2f_iv
   -in deploy-key-malawi.enc -out deploy-key-malawi -d
-- eval "$(ssh-agent -s)"
 - chmod 600 ~/.ssh/config
 - chmod 600 deploy-key-malawi
 - mv deploy-key-malawi ~/.ssh/id_rsa
 - rm deploy-key-malawi.enc
-- ls -l ~
 - echo -e "Host 199.58.81.155" >> ~/.ssh/config
 - echo -e "IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
 before_script:
