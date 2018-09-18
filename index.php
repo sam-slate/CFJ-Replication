@@ -1,4 +1,5 @@
 <?php
+    // serveer migration
     $URL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
     include dirname(__FILE__) . '/AltoRouter.php';
